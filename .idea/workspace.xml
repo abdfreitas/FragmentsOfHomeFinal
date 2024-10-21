@@ -4,27 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/items/item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/GameOverState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/GameState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/PlayingState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/state/WinState.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/Tile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/Screen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ui/SideBar.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="added packages, classes, methods and res">
+      <change afterPath="$PROJECT_DIR$/src/items/Item_Key.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/items/item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
+    </list>
+    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="">
+      <change beforePath="$PROJECT_DIR$/src/game/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/MazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/Tile.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +48,14 @@
     "accountId": "ec185a24-2279-4d61-86d8-f6a0db2bbc6a"
   }
 }]]></component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/maze/Maze.java">
+      <ranges>
+        <range start1="3" end1="3" start2="3" end2="37" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+        <range start1="5" end1="5" start2="39" end2="40" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 3
 }]]></component>
@@ -69,6 +72,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -78,6 +82,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\20244494\IdeaProjects\FragmentsOfHomeNew\res\tiles" />
+      <recent name="C:\Users\20244494\IdeaProjects\FragmentsOfHomeNew\res\player" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -94,11 +104,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729528794645</updated>
-      <workItem from="1729528795694" duration="975000" />
+      <workItem from="1729528795694" duration="11476000" />
     </task>
+    <task id="LOCAL-00001" summary="added packages, classes, methods and res">
+      <option name="closed" value="true" />
+      <created>1729530087914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729530087914</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added packages, classes, methods and res" />
+    <option name="LAST_COMMIT_MESSAGE" value="added packages, classes, methods and res" />
   </component>
 </project>
