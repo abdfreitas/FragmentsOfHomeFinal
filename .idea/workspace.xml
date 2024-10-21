@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="added packages, classes, methods and res">
-      <change afterPath="$PROJECT_DIR$/src/items/Item_Key.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
+      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/Item_Key.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/items/item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="">
       <change beforePath="$PROJECT_DIR$/src/game/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
@@ -48,14 +41,6 @@
     "accountId": "ec185a24-2279-4d61-86d8-f6a0db2bbc6a"
   }
 }]]></component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/maze/Maze.java">
-      <ranges>
-        <range start1="3" end1="3" start2="3" end2="37" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
-        <range start1="5" end1="5" start2="39" end2="40" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
-      </ranges>
-    </file>
-  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 3
 }]]></component>
@@ -104,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1729528794645</updated>
-      <workItem from="1729528795694" duration="11476000" />
+      <workItem from="1729528795694" duration="11775000" />
     </task>
     <task id="LOCAL-00001" summary="added packages, classes, methods and res">
       <option name="closed" value="true" />
@@ -114,7 +99,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729530087914</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="progress">
+      <option name="closed" value="true" />
+      <created>1729542685509</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729542685509</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added packages, classes, methods and res" />
-    <option name="LAST_COMMIT_MESSAGE" value="added packages, classes, methods and res" />
+    <MESSAGE value="progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="progress" />
   </component>
 </project>
