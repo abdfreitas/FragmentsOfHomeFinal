@@ -1,8 +1,10 @@
 package game;
 
+import items.Item;
 import maze.Maze;
 import player.Player;
 import tile.TileManager;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,9 +43,15 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Keep playing the game until stopped
     //    public CollisionChecker cChecker = new CollisionChecker(this);
-    Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH);
+
+    //ITEMS
+    public Item itm[] = new Item[10];
+    public AssetSetter aSetter = new AssetSetter(this);
+
     Maze maze = new Maze(mazeWidth, mazeHeight);
     TileManager tileM = new TileManager(this, maze);
+
 
 
     public GamePanel() {
@@ -55,6 +63,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
 
+    public void setupGame() {
+        aSetter.setObject();
+    }
 
     public void startGameThread() {
         gameThread = new Thread(this);
