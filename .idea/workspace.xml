@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
-      <change afterPath="$PROJECT_DIR$/src/game/AssetSetter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/Item_Key.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/items/item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/Item.java" afterDir="false" />
-    </list>
-    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
       <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
     </list>
+    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

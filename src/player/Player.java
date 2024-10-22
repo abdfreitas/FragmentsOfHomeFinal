@@ -3,6 +3,7 @@ package player;
 // IMPORT METHODS
 import game.GamePanel;
 import game.KeyHandler;
+import maze.Maze;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -22,10 +23,10 @@ public class Player extends Entity {
 
         // SOLID AREA FOR COLLISION CHECKER
         solidArea = new Rectangle(10,27,28,21);
-        // solidArea.x = 10;
-        // solidArea.y = 27;
-        // solidArea.width = 28;
-        // solidArea.height = 21;
+         solidArea.x = 10;
+         solidArea.y = 27;
+         solidArea.width = 28;
+         solidArea.height = 21;
 
         setDefaultValues();
         getPlayerImage();
@@ -140,9 +141,9 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-//            // CHECK FOR TILE COLLISION
-//            collisionOn = false;
-//            gp.cChecker.checkTile(this);
+            // CHECK FOR TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
 
             // IF COLLISION IS FALSE, THE PLAYER CAN MOVE
             if (!collisionOn) {

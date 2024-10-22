@@ -12,6 +12,7 @@ public class Maze {
         this.height = height;
         this.maze = new int[width][height];
 
+        initializeMaze();
         MazeGenerator generator = new MazeGenerator(this);
         generator.mazeGenerator(0,0);
     }

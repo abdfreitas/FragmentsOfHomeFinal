@@ -42,15 +42,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Keep playing the game until stopped
-    //    public CollisionChecker cChecker = new CollisionChecker(this);
-    public Player player = new Player(this, keyH);
 
     //ITEMS
     public Item itm[] = new Item[10];
     public AssetSetter aSetter = new AssetSetter(this);
-
     Maze maze = new Maze(mazeWidth, mazeHeight);
     TileManager tileM = new TileManager(this, maze);
+    public CollisionChecker cChecker = new CollisionChecker(this, maze);
+    public Player player = new Player(this, keyH);
+
+
 
 
 
