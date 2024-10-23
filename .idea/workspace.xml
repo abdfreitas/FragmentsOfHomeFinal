@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
-      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="trial">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
     </list>
     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
@@ -113,7 +111,31 @@
       <option name="project" value="LOCAL" />
       <updated>1729542958788</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="progress">
+      <option name="closed" value="true" />
+      <created>1729604831913</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729604831913</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now">
+      <option name="closed" value="true" />
+      <created>1729711990856</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1729711990856</updated>
+    </task>
+    <task id="LOCAL-00006" summary="trial">
+      <option name="closed" value="true" />
+      <created>1729712604573</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1729712604573</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +145,8 @@
     <MESSAGE value="added packages, classes, methods and res" />
     <MESSAGE value="Changes by 20241481" />
     <MESSAGE value="progress" />
-    <option name="LAST_COMMIT_MESSAGE" value="progress" />
+    <MESSAGE value="trial" />
+    <MESSAGE value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
   </component>
 </project>

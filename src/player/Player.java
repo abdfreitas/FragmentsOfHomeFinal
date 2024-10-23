@@ -2,7 +2,6 @@ package player;
 // IMPORT METHODS
 import game.GamePanel;
 import game.KeyHandler;
-import maze.Maze;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
