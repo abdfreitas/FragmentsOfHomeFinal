@@ -7,6 +7,7 @@ public class CollisionChecker {
 
     Maze maze;
     GamePanel gp;
+    //trial
 
     public CollisionChecker(GamePanel gp, Maze maze) {
         this.gp = gp;
