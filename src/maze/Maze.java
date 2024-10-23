@@ -14,7 +14,7 @@ public class Maze {
 
         initializeMaze();
         MazeGenerator generator = new MazeGenerator(this);
-        //generator.mazeGenerator(0,0);
+        // generator.mazeGenerator(0,0);
     }
 
     private void initializeMaze() {

@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread; // Keep playing the game until stopped
 
-    //ITEMS
+    // ITEMS
     public Item itm[] = new Item[10];
     public AssetSetter aSetter = new AssetSetter(this);
     Maze maze = new Maze(mazeWidth, mazeHeight);

@@ -55,7 +55,7 @@ public class TileManager {
                 int cellType = maze.getMaze()[x][y];
 
                 // Debugging
-                //System.out.println("Drawing tile at (" + x + ", " + y + "): " + (cellType == Maze.WALL ? "WALL" : "PATH"));
+                // System.out.println("Drawing tile at (" + x + ", " + y + "): " + (cellType == Maze.WALL ? "WALL" : "PATH"));
                 if (cellType == Maze.WALL) {
                     g.drawImage(tile[0].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 } else if (cellType == Maze.PATH) {

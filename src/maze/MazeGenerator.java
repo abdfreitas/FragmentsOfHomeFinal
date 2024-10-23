@@ -58,7 +58,7 @@ public class MazeGenerator {
             int nx = x + dx[direction];  // nx = new x
             int ny = y + dy[direction];  // ny = new y
 
-            // Ensure that the new position is within bounds and is a wall
+            // Ensure the new position is within bounds and is a wall
             if (nx > 0 && ny > 0 && nx < width - 1 && ny < height - 1 && mazeGrid[nx][ny] == Maze.WALL) {
                 mazeGrid[x + dx[direction] / 2][y + dy[direction] / 2] = Maze.PATH;  // Knock down wall
                 mazeGrid[nx][ny] = Maze.PATH;  // Mark the new cell as part of the path
