@@ -30,12 +30,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     // MAZE DIMENSIONS
     private final int mazeWidth = 19;
-    private final int mazeHeight = 14;
+    private final int mazeHeight = 13;
     private int mazeStartCol = 2;
     private int mazeStartRow = 2;
 
-    private final int mazeStartX = mazeStartCol * tileSize;
-    private final int mazeStartY = mazeStartRow * tileSize;
+    public final int mazeStartX = mazeStartCol * tileSize;
+    public final int mazeStartY = mazeStartRow * tileSize;
 
     // FPS
     int FPS = 60;
@@ -48,8 +48,8 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     Maze maze = new Maze(mazeWidth, mazeHeight);
     TileManager tileM = new TileManager(this, maze);
-    public CollisionChecker cChecker = new CollisionChecker(this, maze);
     public Player player = new Player(this, keyH);
+    public CollisionChecker cChecker = new CollisionChecker(this, maze);
 
 
 

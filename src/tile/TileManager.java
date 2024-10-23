@@ -42,6 +42,8 @@ public class TileManager {
             // BASIC PATH
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(new File("res/tiles/BasicPath.png"));
+            tile[3].collision = false;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,9 +54,13 @@ public class TileManager {
             for (int y = 0; y < maze.getHeight(); y++) {
                 int cellType = maze.getMaze()[x][y];
 
+                // Debugging
+                //System.out.println("Drawing tile at (" + x + ", " + y + "): " + (cellType == Maze.WALL ? "WALL" : "PATH"));
                 if (cellType == Maze.WALL) {
                     g.drawImage(tile[0].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 } else if (cellType == Maze.PATH) {
+                    // Debugging
+                    // System.out.println("Path tile at (" + x + ", " + y + ").");
                     g.drawImage(tile[3].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 }
             }
