@@ -1,164 +1,155 @@
 package player;
-// IMPORT METHODS
+
 import game.GamePanel;
 import game.KeyHandler;
-
-import javax.imageio.ImageIO;
+import graphics.Animation;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
+/*
+Player class creates a character that's movable by the user and is considered as an entity
+from the rest of the program and has personalized animations for each movement. The class also looks for any collisions
+between a solid area within the player and the maze, and allows and disables movement accordingly.
+ */
 
 public class Player extends Entity {
-    GamePanel gp;
-    KeyHandler keyH;
-
+    GamePanel gamepanel;
+    KeyHandler keyhandler;
     boolean isIdle = true;
 
-    // Arrays to hold animation frames
-    BufferedImage[] idleFrames = new BufferedImage[8];
-    BufferedImage[] upFrames = new BufferedImage[12];
-    BufferedImage[] downFrames = new BufferedImage[12];
-    BufferedImage[] leftFrames = new BufferedImage[12];
-    BufferedImage[] rightFrames = new BufferedImage[12];
+    /*
+    Arrays to store images for animating the player in different movement states.
+    */
+    Animation idleAnimation;
+    Animation upAnimation;
+    Animation downAnimation;
+    Animation leftAnimation;
+    Animation rightAnimation;
 
-    public Player (GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
-        this.keyH = keyH;
-
-        // SOLID AREA FOR COLLISION CHECKER
-        solidArea = new Rectangle(10,27,28,21);
-        solidArea.x = 10;
-        solidArea.y = 27;
-        solidArea.width = 28;
-        solidArea.height = 21;
+    public Player(GamePanel gp, KeyHandler keyhandler) {
+        this.gamepanel = gp;
+        this.keyhandler = keyhandler;
+        solidArea = new Rectangle(10, 27, 28, 21);
 
         setDefaultValues();
-        getPlayerImage();
+        loadAnimations();
     }
 
-    // PLAYER SPAWN POINT AND SPEED
+    /*
+   Sets the initial values for the player's position and speed.
+   */
     public void setDefaultValues() {
         spawnX = 1;
         spawnY = 45;
-
         playerX = spawnX;
         playerY = spawnY;
-
         speed = 2;
-        direction = "down";
     }
 
-    // SPRITE IMAGES
-    public void getPlayerImage() {
-
-            try {
-                for (int i = 0; i < 8; i++) {
-                    idleFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/idle-" + (i + 1) + ".png.png"));
-                }
-
-                for (int i = 0; i < 12; i++) {
-                        rightFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/right-" + (i + 1) + ".png.png"));
-                        leftFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/left-" + (i + 1) + ".png.png"));
-                        upFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/up-" + (i + 1) + ".png.png"));
-                        downFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/down-" + (i + 1) + ".png.png"));
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    /*
+    Initializes all player animations.
+    */
+    public void loadAnimations() {
+        idleAnimation = new Animation("/player/idle-", 8, 8);
+        upAnimation = new Animation("/player/up-", 12, 8);
+        downAnimation = new Animation("/player/down-", 12, 8);
+        leftAnimation = new Animation("/player/left-", 12, 8);
+        rightAnimation = new Animation("/player/right-", 12, 8);
     }
 
-    // PLAYER DIRECTION/MOVEMENT WITH KEY HANDLER
+    /*
+    Updates the player's movement state based on input and handles animation.
+    - Checks if movement keys are pressed to update the player's position.
+    - If a key is pressed, the input is processed, collision is checked, and movement animation plays.
+    - If no pressed keys, the player remains idle and the idle animation plays.
+    */
     public void update() {
-
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            isIdle = false;
-            if (keyH.upPressed) {
-                direction = "up";
-            } else if (keyH.downPressed) {
-                direction = "down";
-            } else if (keyH.leftPressed) {
-                direction = "left";
-            } else if (keyH.rightPressed) {
-                direction = "right";
-            }
-
-            // CHECK FOR TILE COLLISION
-            collisionOn = false;
-
-            if (playerX >= gp.mazeStartX  && playerY >= gp.mazeStartY) {
-                // Run collision detection only within maze bounds
-                gp.cChecker.checkTile(this);
-            }
-
-            System.out.println("Player position: (" + playerX + ", " + playerY + ")");
-            System.out.println("Collision status: " + collisionOn);
-            // IF COLLISION IS FALSE, THE PLAYER CAN MOVE
-            if (!collisionOn) {
-                switch (direction) {
-                    case "up":
-                        playerY -= speed;
-                        break;
-                    case "down":
-                        playerY += speed;
-                        break;
-                    case "left":
-                        playerX -= speed;
-                        break;
-                    case "right":
-                        playerX += speed;
-                        break;
-                }
-            }
-
-            // ANIMATE PLAYER MOVEMENT
-            spriteCounter++;
-            if (spriteCounter > 8) {
-                spriteNum = (spriteNum % 12) + 1;
-                spriteCounter = 0;
-            }
+        if (keyhandler.upPressed || keyhandler.downPressed || keyhandler.leftPressed || keyhandler.rightPressed) {
+            processInput();
+            checkCollision();
         } else {
-            // NO MOVEMENT. THE PLAYER IS IDLE
-            isIdle = true;
-            spriteCounter++;
-            if (spriteCounter > 8) {
-                spriteNum = (spriteNum % 8) + 1;
-                spriteCounter = 0;
-            }
+            animateIdle();
         }
     }
 
+    /*
+    Draws the player on the screen using the appropriate animation frame.
+    */
     public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-
-        try {
-            if (isIdle) {
-                // Show idle animation
-                image = idleFrames[spriteNum - 1];
-            } else {
-                // Show movement animation based on direction
-                switch (direction) {
-                    case "up":
-                        image = upFrames[spriteNum - 1];
-                        break;
-                    case "down":
-                        image = downFrames[spriteNum - 1];
-                        break;
-                    case "left":
-                        image = leftFrames[spriteNum - 1];
-                        break;
-                    case "right":
-                        image = rightFrames[spriteNum - 1];
-                        break;
-                }
-            }
+        BufferedImage image;
+        if (isIdle) {
+            image = idleAnimation.getNextFrame();
+        } else {
+            image = movementSprites();
         }
-            catch(ArrayIndexOutOfBoundsException e) {
-                e.getMessage();
-                spriteNum = 1;
-            }
+        g2.drawImage(image, playerX, playerY, gamepanel.playerSize, gamepanel.playerSize, null);
+    }
 
-        g2.drawImage(image, playerX, playerY, gp.playerSize, gp.playerSize, null);
+    /*
+    Processes player input to determine movement direction.
+    - isIdle is set to false if any movement key is pressed.
+    - direction is updated to reflect the key pressed (up, down, left, right).
+    */
+    public void processInput() {
+        isIdle = false;
+        if (keyhandler.upPressed) direction = "up";
+        else if (keyhandler.downPressed) direction = "down";
+        else if (keyhandler.leftPressed) direction = "left";
+        else if (keyhandler.rightPressed) direction = "right";
+    }
+
+    /*
+    Moves the player in the current direction based on the speed value.
+    - Adjusts the player's position on the X or Y axis depending on the direction.
+    */
+    public void movePlayer() {
+        if (direction.equals("up")) playerY -= speed;
+        else if (direction.equals("down")) playerY += speed;
+        else if (direction.equals("left")) playerX -= speed;
+        else if (direction.equals("right")) playerX += speed;
+    }
+
+    /*
+    Checks for collisions between the player and the environment (e.g., walls).
+    - If a collision is detected, the player does not move.
+    - If no collision is detected, the player moves.
+    */
+    public void checkCollision() {
+        collisionOn = false;
+        if (playerX >= gamepanel.mazeStartX && playerX < gamepanel.mazeEndX &&
+                playerY >= gamepanel.mazeStartY && playerY < gamepanel.mazeEndY) {
+            gamepanel.collisionchecker.checkTile(this);
+//            playerX = playerX - 1;
+//            playerY = playerY - 1;
+        }
+        // Debugging
+        System.out.println("Player position: (" + playerX + ", " + playerY + ")");
+        System.out.println("Collision status: " + collisionOn);
+        //System.out.println("Current playerX and playerY: " + playerX + ", " + playerY);
+
+        if (!collisionOn) {
+            movePlayer();
+        }
+    }
+
+    /*
+    Returns the appropriate movement animation frames based on the player's direction.
+    - Uses a switch statement to determine the correct frames for each direction.
+    */
+    public BufferedImage movementSprites() {
+        return switch (direction) {
+            case "up" -> upAnimation.getNextFrame();
+            case "down" -> downAnimation.getNextFrame();
+            case "left" -> leftAnimation.getNextFrame();
+            case "right" -> rightAnimation.getNextFrame();
+            default -> null;
+        };
+    }
+
+    /*
+    If the idle is being animated, that means the player is idle.
+     */
+    public void animateIdle() {
+        isIdle = true;
     }
 }

@@ -17,29 +17,32 @@ public class MazeGenerator {
         this.mazeGrid = maze.getMaze();
 
         // Initialize the maze with walls
-        initializeMaze();
+        // initializeMaze();
+
+        // Start generating the maze from (1, 1) to avoid the outer walls
+        mazeGenerator(1, 1);
 
         // Create an entrance and exit
         mazeGrid[0][6] = Maze.PATH;  // Entrance at the first column (1, 0)
         mazeGrid[width - 2][height - 1] = Maze.PATH;  // Exit at the last column (width - 2, height - 1)
-
-        // Start generating the maze from (1, 1) to avoid the outer walls
-        mazeGenerator(1, 1);
     }
 
-    // Initialize the maze with walls, leaving space for entrance and exit
-    private void initializeMaze() {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                // Set borders to walls
-                if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-                    mazeGrid[i][j] = Maze.WALL;  // Set border walls
-                } else {
-                    mazeGrid[i][j] = Maze.WALL;  // Set inner cells to walls initially
-                }
-            }
-        }
-    }
+//    // Initialize the maze with walls, leaving space for entrance and exit
+//    private void initializeMaze() {
+//        for (int i = 0; i < width; i++) {
+//            for (int j = 0; j < height; j++) {
+//
+//                mazeGrid[i][j] = Maze.WALL;
+//
+////                // Set borders to walls
+////                if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
+////                    mazeGrid[i][j] = Maze.WALL;  // Set border walls
+////                } else {
+////                    mazeGrid[i][j] = Maze.WALL;  // Set inner cells to walls initially
+////                }
+//            }
+//        }
+//    }
 
     // Depth-First Search-based Maze Generation
     public void mazeGenerator(int x, int y) {

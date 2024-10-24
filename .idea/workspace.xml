@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="trial">
+      <change afterPath="$PROJECT_DIR$/src/graphics/Animation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/AssetSetter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/items/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/MazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
     </list>
-    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
+    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
+      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +50,47 @@
     &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;
   }
 }</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/player/Player.java">
+      <ranges>
+        <range start1="1" end1="2" start2="1" end2="2" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="4" end1="6" start2="4" end2="5" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="8" end1="9" start2="7" end2="7" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="10" end1="10" start2="8" end2="13" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="12" end1="15" start2="15" end2="17" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="17" end1="23" start2="19" end2="27" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="24" end1="34" start2="28" end2="32" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="36" end1="37" start2="34" end2="35" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="39" end1="40" start2="37" end2="40" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="43" end1="44" start2="43" end2="43" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="46" end1="47" start2="45" end2="45" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="48" end1="58" start2="46" end2="47" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="59" end1="65" start2="48" end2="58" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="66" end1="72" start2="59" end2="65" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="73" end1="73" start2="66" end2="73" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="74" end1="85" start2="74" end2="110" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="86" end1="88" start2="111" end2="120" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="89" end1="113" start2="121" end2="136" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="114" end1="162" start2="137" end2="156" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="164" end1="164" start2="158" end2="159" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/game/GamePanel.java">
+      <ranges>
+        <range start1="2" end1="3" start2="2" end2="2" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="6" end1="8" start2="5" end2="5" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="38" end1="38" start2="35" end2="39" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+        <range start1="42" end1="44" start2="43" end2="45" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="46" end1="48" start2="47" end2="47" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+        <range start1="49" end1="54" start2="48" end2="51" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="62" end1="63" start2="59" end2="60" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="66" end1="69" start2="63" end2="64" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+        <range start1="71" end1="73" start2="66" end2="68" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="86" end1="87" start2="81" end2="82" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="116" end1="117" start2="111" end2="112" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>

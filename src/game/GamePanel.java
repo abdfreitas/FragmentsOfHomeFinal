@@ -1,11 +1,8 @@
 package game;
 
-import items.Item;
 import maze.Maze;
 import player.Player;
 import tile.TileManager;
-
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -37,21 +34,21 @@ public class GamePanel extends JPanel implements Runnable {
     public final int mazeStartX = mazeStartCol * tileSize;
     public final int mazeStartY = mazeStartRow * tileSize;
 
+    public final int mazeEndX = mazeStartX + (mazeWidth * tileSize);
+    public final int mazeEndY = mazeStartY + (mazeHeight * tileSize);
+
+
     // FPS
     int FPS = 60;
 
-    KeyHandler keyH = new KeyHandler();
-    Thread gameThread; // Keep playing the game until stopped
+    KeyHandler keyhandler = new KeyHandler();
+    Thread gamethread; // Keep playing the game until stopped
 
     // ITEMS
-    public Item itm[] = new Item[10];
-    public AssetSetter aSetter = new AssetSetter(this);
     Maze maze = new Maze(mazeWidth, mazeHeight);
-    TileManager tileM = new TileManager(this, maze);
-    public Player player = new Player(this, keyH);
-    public CollisionChecker cChecker = new CollisionChecker(this, maze);
-
-
+    TileManager tilemanager = new TileManager(this, maze);
+    public CollisionChecker collisionchecker = new CollisionChecker(this, maze);
+    public Player player = new Player(this, keyhandler);
 
 
 
@@ -60,17 +57,15 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.green);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(keyhandler);
         this.setFocusable(true);
     }
 
-    public void setupGame() {
-        aSetter.setObject();
-    }
+
 
     public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
+        gamethread = new Thread(this);
+        gamethread.start();
     }
 
     // DELTA GAME LOOP
@@ -84,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        while (gameThread != null) {
+        while (gamethread != null) {
 
             currentTime = System.nanoTime();
 
@@ -114,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        tileM.draw(g2, tileSize, mazeStartX, mazeStartY);
+        tilemanager.draw(g2, tileSize, mazeStartX, mazeStartY);
         player.draw(g2);
         g2.dispose();
     }
