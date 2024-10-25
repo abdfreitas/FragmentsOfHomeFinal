@@ -1,5 +1,7 @@
 package game;
 
+import game.CollisionChecking.ICollisionChecker;
+import game.CollisionChecking.PolygonCollisionChecker;
 import game.CollisionChecking.SquareCollisionChecker;
 import maze.Maze;
 import player.Player;
@@ -31,16 +33,26 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tilemanager = new TileManager(screen, maze);
     KeyHandler keyhandler = new KeyHandler();
     Thread gamethread; // Keep playing the game until stopped
-    public SquareCollisionChecker collisionchecker = new SquareCollisionChecker(this, maze);
+    public ICollisionChecker collisionchecker;
     public Player player = new Player(this, keyhandler, maze);
 
 
-    public GamePanel() {
+    public GamePanel(String collisionCheckerType) {
 
         this.setPreferredSize(new Dimension(screen.screenWidth, screen.screenHeight));
         this.setDoubleBuffered(true);
         this.addKeyListener(keyhandler);
         this.setFocusable(true);
+
+        if (collisionCheckerType.equals("square")) {
+            collisionchecker = new SquareCollisionChecker(this, maze);
+        }
+        else if (collisionCheckerType.equals("polygon")) {
+            collisionchecker = new PolygonCollisionChecker(this, maze);
+        }
+        else {
+            throw new IllegalArgumentException("Illegal collision checker type: " + collisionCheckerType);
+        }
     }
 
     public void startGameThread() {

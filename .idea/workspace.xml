@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="Fixed warnings">
-      <change afterPath="$PROJECT_DIR$/src/game/CollisionChecking/ICollisionChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecking/SquareCollisionChecker.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="Added interface">
+      <change afterPath="$PROJECT_DIR$/src/game/CollisionChecking/PolygonCollisionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
     </list>
     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -82,6 +83,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="FragmentsOfHomeNew" />
+      <option name="PROGRAM_PARAMETERS" value="polygon" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="game.CollisionChecking.*" />
@@ -181,7 +183,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729881451218</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added interface">
+      <option name="closed" value="true" />
+      <created>1729882132184</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1729882132184</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,7 +205,8 @@
     <MESSAGE value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
     <MESSAGE value="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures" />
     <MESSAGE value="Fixed warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed warnings" />
+    <MESSAGE value="Added interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added interface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
