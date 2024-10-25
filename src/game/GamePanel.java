@@ -1,5 +1,6 @@
 package game;
 
+import game.CollisionChecking.SquareCollisionChecker;
 import maze.Maze;
 import player.Player;
 import tile.TileManager;
@@ -27,10 +28,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     Maze maze = new Maze(tileSize);
     Screen screen = new Screen(this);
-    TileManager tilemanager = new TileManager(screen, maze);
+    public TileManager tilemanager = new TileManager(screen, maze);
     KeyHandler keyhandler = new KeyHandler();
     Thread gamethread; // Keep playing the game until stopped
-    public CollisionChecker collisionchecker = new CollisionChecker(this, maze);
+    public SquareCollisionChecker collisionchecker = new SquareCollisionChecker(this, maze);
     public Player player = new Player(this, keyhandler, maze);
 
 

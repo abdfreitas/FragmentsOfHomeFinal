@@ -1,14 +1,15 @@
-package game;
+package game.CollisionChecking;
 
+import game.GamePanel;
 import maze.Maze;
 import player.Entity;
 
-public class CollisionChecker {
+public class SquareCollisionChecker implements ICollisionChecker {
 
     Maze maze;
     GamePanel gp;
 
-    public CollisionChecker(GamePanel gp, Maze maze) {
+    public SquareCollisionChecker(GamePanel gp, Maze maze) {
         this.gp = gp;
         this.maze = maze;
     }
