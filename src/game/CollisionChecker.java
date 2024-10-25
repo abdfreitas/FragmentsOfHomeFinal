@@ -14,7 +14,7 @@ public class CollisionChecker {
     }
 
     public void checkTile(Entity entity) {
-        entity.collisionOn = false;
+        //entity.collisionOn = false;
 
         // Calculate entity's edges using playerX and playerY
         int entityLeftWorldX = entity.playerX + entity.solidArea.x;
@@ -78,5 +78,4 @@ public class CollisionChecker {
                 break;
         }
     }
-
 }

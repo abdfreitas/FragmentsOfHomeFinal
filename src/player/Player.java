@@ -3,6 +3,7 @@ package player;
 import game.GamePanel;
 import game.KeyHandler;
 import graphics.Animation;
+import maze.Maze;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -14,6 +15,7 @@ between a solid area within the player and the maze, and allows and disables mov
 
 public class Player extends Entity {
     GamePanel gamepanel;
+    Maze maze;
     KeyHandler keyhandler;
     boolean isIdle = true;
 
@@ -26,9 +28,10 @@ public class Player extends Entity {
     Animation leftAnimation;
     Animation rightAnimation;
 
-    public Player(GamePanel gp, KeyHandler keyhandler) {
+    public Player(GamePanel gp, KeyHandler keyhandler, Maze maze) {
         this.gamepanel = gp;
         this.keyhandler = keyhandler;
+        this.maze = maze;
         solidArea = new Rectangle(10, 27, 28, 21);
 
         setDefaultValues();
@@ -39,8 +42,8 @@ public class Player extends Entity {
    Sets the initial values for the player's position and speed.
    */
     public void setDefaultValues() {
-        spawnX = 1;
-        spawnY = 45;
+        spawnX = 2 * gamepanel.tileSize;
+        spawnY = 8 * gamepanel.tileSize - 10;
         playerX = spawnX;
         playerY = spawnY;
         speed = 2;
@@ -67,6 +70,7 @@ public class Player extends Entity {
         if (keyhandler.upPressed || keyhandler.downPressed || keyhandler.leftPressed || keyhandler.rightPressed) {
             processInput();
             checkCollision();
+            //movePlayer();
         } else {
             animateIdle();
         }
@@ -116,11 +120,11 @@ public class Player extends Entity {
     */
     public void checkCollision() {
         collisionOn = false;
-        if (playerX >= gamepanel.mazeStartX && playerX < gamepanel.mazeEndX &&
-                playerY >= gamepanel.mazeStartY && playerY < gamepanel.mazeEndY) {
+
+        if (playerX + solidArea.width >= maze.mazeStartX && playerX < maze.mazeEndX - gamepanel.tileSize &&
+                playerY >= maze.mazeStartY - gamepanel.tileSize && playerY < maze.mazeEndY - gamepanel.tileSize) {
+
             gamepanel.collisionchecker.checkTile(this);
-//            playerX = playerX - 1;
-//            playerY = playerY - 1;
         }
         // Debugging
         System.out.println("Player position: (" + playerX + ", " + playerY + ")");

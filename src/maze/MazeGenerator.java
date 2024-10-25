@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class MazeGenerator {
 
-    private Maze maze;
+    Maze maze;
     private int[][] mazeGrid;
     private int width, height;
 
@@ -16,33 +16,14 @@ public class MazeGenerator {
         this.height = maze.getHeight();  // Expected height = 13
         this.mazeGrid = maze.getMaze();
 
-        // Initialize the maze with walls
-        // initializeMaze();
+        // Create an entrance and exit
+        mazeGrid[0][6] = Maze.PATH;  // Entrance at the first column (1, 0)
+        mazeGrid[1][6] = Maze.PATH;  // Ensures the entrance is never blocked
+        mazeGrid[width - 2][height - 1] = Maze.PATH;  // Exit at the last column (width - 2, height - 1)
 
         // Start generating the maze from (1, 1) to avoid the outer walls
         mazeGenerator(1, 1);
-
-        // Create an entrance and exit
-        mazeGrid[0][6] = Maze.PATH;  // Entrance at the first column (1, 0)
-        mazeGrid[width - 2][height - 1] = Maze.PATH;  // Exit at the last column (width - 2, height - 1)
     }
-
-//    // Initialize the maze with walls, leaving space for entrance and exit
-//    private void initializeMaze() {
-//        for (int i = 0; i < width; i++) {
-//            for (int j = 0; j < height; j++) {
-//
-//                mazeGrid[i][j] = Maze.WALL;
-//
-////                // Set borders to walls
-////                if (i == 0 || j == 0 || i == width - 1 || j == height - 1) {
-////                    mazeGrid[i][j] = Maze.WALL;  // Set border walls
-////                } else {
-////                    mazeGrid[i][j] = Maze.WALL;  // Set inner cells to walls initially
-////                }
-//            }
-//        }
-//    }
 
     // Depth-First Search-based Maze Generation
     public void mazeGenerator(int x, int y) {

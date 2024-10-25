@@ -1,25 +1,33 @@
 package tile;
 
-import game.GamePanel;
 import maze.Maze;
+import ui.Screen;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
-import java.awt.*;
 import java.io.*;
-import java.util.*;
 
 public class TileManager {
 
-    GamePanel gp;
+    Screen screen;
     public Tile[] tile;
     public int mapTileNum[][];
-    private Maze maze;
+    Maze maze;
 
-    public TileManager(GamePanel gp, Maze maze) {
-        this.gp = gp;
+
+
+    public TileManager(Screen screen, Maze maze) {
+        this.screen = screen;
         this.maze = maze;
         tile = new Tile[10];
-        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
+        mapTileNum = new int[screen.maxScreenCol][screen.maxScreenRow];
+        for (int i = maze.mazeStartCol; i < maze.mazeStartCol + maze.getWidth(); i++) {
+            for (int j = maze.mazeStartRow; j < maze.mazeStartRow + maze.getHeight(); j++) {
+                int cell = maze.getMaze()[i- maze.mazeStartCol][j-maze.mazeStartRow];
+                if (cell == 0) {
+                    mapTileNum[i][j] = 3;
+                }
+            }
+        }
 
         getTileImage();
     }
@@ -28,12 +36,13 @@ public class TileManager {
         try {
             // MAZE WALL
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File("res/tiles/MazeWallTile.png"));
+            tile[0].image = ImageIO.read(new File("res/tiles/LavaFloor.png"));
             tile[0].collision = true;
 
             // START TILE
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File("res/tiles/StartTile.png"));
+            tile[1].image = ImageIO.read(new File("res/tiles/SideBarBg.png"));
+            tile[1].collision = true;
 
             // WIN TILE
             tile[2] = new Tile();
@@ -41,7 +50,7 @@ public class TileManager {
 
             // BASIC PATH
             tile[3] = new Tile();
-            tile[3].image = ImageIO.read(new File("res/tiles/BasicPath.png"));
+            tile[3].image = ImageIO.read(new File("res/tiles/Path.png"));
             tile[3].collision = false;
 
         } catch (IOException e) {
@@ -50,6 +59,7 @@ public class TileManager {
     }
 
     public void draw(Graphics g, int tileSize, int mazeStartX, int mazeStartY) {
+
         for (int x = 0; x < maze.getWidth(); x++) {
             for (int y = 0; y < maze.getHeight(); y++) {
                 int cellType = maze.getMaze()[x][y];
@@ -63,6 +73,12 @@ public class TileManager {
                     // System.out.println("Path tile at (" + x + ", " + y + ").");
                     g.drawImage(tile[3].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 }
+            }
+        }
+
+        for (int x = 23; x < screen.maxScreenCol; x++) {
+            for (int y = 0; y < screen.maxScreenRow; y++) {
+                g.drawImage(tile[1].image, x * tileSize, y * tileSize, tileSize, tileSize, null);
             }
         }
     }
