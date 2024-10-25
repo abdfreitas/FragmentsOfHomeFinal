@@ -36,9 +36,6 @@ public class CollisionChecker {
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tilemanager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tilemanager.mapTileNum[entityRightCol][entityTopRow];
-                // Debugging output
-                System.out.println("Checking collision: Up");
-                System.out.println("Top tiles: " + tileNum1 + ", " + tileNum2);
                 if (gp.tilemanager.tile[tileNum1].collision || gp.tilemanager.tile[tileNum2].collision) {
                     entity.collisionOn = true; // Collision detected
                 }
@@ -47,9 +44,6 @@ public class CollisionChecker {
                 entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
                 tileNum1 = gp.tilemanager.mapTileNum[entityLeftCol][entityBottomRow];
                 tileNum2 = gp.tilemanager.mapTileNum[entityRightCol][entityBottomRow];
-                // Debugging output
-                System.out.println("Checking collision: Down");
-                System.out.println("Bottom tiles: " + tileNum1 + ", " + tileNum2);
                 if (gp.tilemanager.tile[tileNum1].collision || gp.tilemanager.tile[tileNum2].collision) {
                     entity.collisionOn = true; // Collision detected
                 }
@@ -58,9 +52,6 @@ public class CollisionChecker {
                 entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
                 tileNum1 = gp.tilemanager.mapTileNum[entityLeftCol][entityTopRow];
                 tileNum2 = gp.tilemanager.mapTileNum[entityLeftCol][entityBottomRow];
-                // Debugging output
-                System.out.println("Checking collision: Left");
-                System.out.println("Left tiles: " + tileNum1 + ", " + tileNum2);
                 if (gp.tilemanager.tile[tileNum1].collision || gp.tilemanager.tile[tileNum2].collision) {
                     entity.collisionOn = true; // Collision detected
                 }
@@ -69,9 +60,6 @@ public class CollisionChecker {
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
                 tileNum1 = gp.tilemanager.mapTileNum[entityRightCol][entityTopRow];
                 tileNum2 = gp.tilemanager.mapTileNum[entityRightCol][entityBottomRow];
-                // Debugging output
-                System.out.println("Checking collision: Right");
-                System.out.println("Right tiles: " + tileNum1 + ", " + tileNum2);
                 if (gp.tilemanager.tile[tileNum1].collision || gp.tilemanager.tile[tileNum2].collision) {
                     entity.collisionOn = true; // Collision detected
                 }

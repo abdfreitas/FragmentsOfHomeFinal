@@ -107,10 +107,12 @@ public class Player extends Entity {
     - Adjusts the player's position on the X or Y axis depending on the direction.
     */
     public void movePlayer() {
-        if (direction.equals("up")) playerY -= speed;
-        else if (direction.equals("down")) playerY += speed;
-        else if (direction.equals("left")) playerX -= speed;
-        else if (direction.equals("right")) playerX += speed;
+        switch (direction) {
+            case "up" -> playerY -= speed;
+            case "down" -> playerY += speed;
+            case "left" -> playerX -= speed;
+            case "right" -> playerX += speed;
+        }
     }
 
     /*
@@ -126,11 +128,6 @@ public class Player extends Entity {
 
             gamepanel.collisionchecker.checkTile(this);
         }
-        // Debugging
-        System.out.println("Player position: (" + playerX + ", " + playerY + ")");
-        System.out.println("Collision status: " + collisionOn);
-        //System.out.println("Current playerX and playerY: " + playerX + ", " + playerY);
-
         if (!collisionOn) {
             movePlayer();
         }

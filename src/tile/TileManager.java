@@ -10,7 +10,7 @@ public class TileManager {
 
     Screen screen;
     public Tile[] tile;
-    public int mapTileNum[][];
+    public int[][] mapTileNum;
     Maze maze;
 
 
@@ -28,7 +28,6 @@ public class TileManager {
                 }
             }
         }
-
         getTileImage();
     }
 
@@ -64,13 +63,9 @@ public class TileManager {
             for (int y = 0; y < maze.getHeight(); y++) {
                 int cellType = maze.getMaze()[x][y];
 
-                // Debugging
-                // System.out.println("Drawing tile at (" + x + ", " + y + "): " + (cellType == Maze.WALL ? "WALL" : "PATH"));
                 if (cellType == Maze.WALL) {
                     g.drawImage(tile[0].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 } else if (cellType == Maze.PATH) {
-                    // Debugging
-                    // System.out.println("Path tile at (" + x + ", " + y + ").");
                     g.drawImage(tile[3].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);
                 }
             }

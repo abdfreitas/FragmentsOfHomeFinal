@@ -7,8 +7,8 @@ import java.util.Random;
 public class MazeGenerator {
 
     Maze maze;
-    private int[][] mazeGrid;
-    private int width, height;
+    private final int[][] mazeGrid;
+    private final int width, height;
 
     public MazeGenerator(Maze maze) {
         this.maze = maze;

@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="trial">
-      <change afterPath="$PROJECT_DIR$/res/tiles/LavaFloor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/Path.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/SideBarBg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/pixelPlanetBg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/planetPixelBg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures">
       <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/maze/MazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/SideBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/SideBar.java" afterDir="false" />
     </list>
     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,6 +25,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -63,7 +58,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "ICollisionChecker",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles",
     "node.js.detected.package.eslint": "true",
@@ -171,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729712604573</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures">
+      <option name="closed" value="true" />
+      <created>1729881021482</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1729881021482</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,7 +186,8 @@
     <MESSAGE value="progress" />
     <MESSAGE value="trial" />
     <MESSAGE value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
+    <MESSAGE value="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

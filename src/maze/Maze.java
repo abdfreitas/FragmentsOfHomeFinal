@@ -3,7 +3,7 @@ package maze;
 public class Maze {
 
     private final int mazeWidth, mazeHeight;
-    private int[][] maze;
+    private final int[][] maze;
     public final int mazeStartX, mazeStartY, mazeEndX, mazeEndY;
     public final int mazeStartCol, mazeStartRow;
 
@@ -23,8 +23,7 @@ public class Maze {
         this.mazeEndY = mazeStartY + (mazeHeight * tileSize);
 
         initializeMaze();
-        MazeGenerator generator = new MazeGenerator(this);
-        //generator.mazeGenerator(0,0);
+        new MazeGenerator(this);
     }
 
     private void initializeMaze() {
