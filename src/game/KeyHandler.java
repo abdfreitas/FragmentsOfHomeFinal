@@ -18,7 +18,6 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_A) leftPressed = true;
         if(code == KeyEvent.VK_S) downPressed = true;
         if(code == KeyEvent.VK_D) rightPressed = true;
-//        else if(code == KeyEvent.VK_ENTER) {}
 
     }
 

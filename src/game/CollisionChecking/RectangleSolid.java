@@ -4,24 +4,27 @@ import game.GamePanel;
 import maze.Maze;
 import player.Entity;
 
-public class SquareCollisionChecker implements ICollisionChecker {
+import java.awt.*;
+
+public class RectangleSolid implements ISolid {
 
     Maze maze;
     GamePanel gp;
 
-    public SquareCollisionChecker(GamePanel gp, Maze maze) {
+    Rectangle area = new Rectangle(10, 27, 28, 21 );
+
+    public RectangleSolid(GamePanel gp, Maze maze) {
         this.gp = gp;
         this.maze = maze;
     }
 
     public void checkTile(Entity entity) {
-        //entity.collisionOn = false;
 
         // Calculate entity's edges using playerX and playerY
-        int entityLeftWorldX = entity.playerX + entity.solidArea.x;
-        int entityRightWorldX = entity.playerX + entity.solidArea.x + entity.solidArea.width;
-        int entityTopWorldY = entity.playerY + entity.solidArea.y;
-        int entityBottomWorldY = entity.playerY + entity.solidArea.y + entity.solidArea.height;
+        int entityLeftWorldX = entity.playerX + this.area.x;
+        int entityRightWorldX = entity.playerX + this.area.x + this.area.width;
+        int entityTopWorldY = entity.playerY + this.area.y;
+        int entityBottomWorldY = entity.playerY + this.area.y + this.area.height;
 
         // Convert to tile coordinates
         int entityLeftCol = entityLeftWorldX / gp.tileSize;

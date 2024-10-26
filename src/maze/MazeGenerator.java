@@ -21,6 +21,7 @@ public class MazeGenerator {
         mazeGrid[1][6] = Maze.PATH;  // Ensures the entrance is never blocked
         mazeGrid[width - 2][height - 1] = Maze.PATH;  // Exit at the last column (width - 2, height - 1)
 
+
         // Start generating the maze from (1, 1) to avoid the outer walls
         mazeGenerator(1, 1);
     }

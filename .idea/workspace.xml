@@ -4,13 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="Added interface">
-      <change afterPath="$PROJECT_DIR$/src/game/CollisionChecking/PolygonCollisionChecker.java" afterDir="false" />
+    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="Added PolygonCollisionChecker">
+      <change afterPath="$PROJECT_DIR$/res/tiles/greenBG.png.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/timer/ITimerListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecking/ICollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecking/ISolid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecking/PolygonCollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecking/PolygonSolid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecking/SquareCollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecking/RectangleSolid.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/graphics/Animation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/graphics/Animation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/GameOverState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/GameOverState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/PlayingState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/WinState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
+    <list id="19942d21-9fbb-48dc-a709-2056c4e389e5" name="Changes by 20244494" comment="">
+      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/maze/MazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,6 +62,44 @@
     &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;
   }
 }</component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/player/Player.java">
+      <ranges>
+        <range start1="4" end1="5" start2="4" end2="5" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="9" end1="13" start2="9" end2="13" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="34" end1="35" start2="34" end2="34" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="38" end1="38" start2="37" end2="38" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="40" end1="40" start2="40" end2="45" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="48" end1="49" start2="53" end2="54" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="72" end1="73" start2="77" end2="77" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="125" end1="126" start2="129" end2="130" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/game/GamePanel.java">
+      <ranges>
+        <range start1="2" end1="5" start2="2" end2="6" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="7" end1="7" start2="8" end2="9" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="11" end1="11" start2="13" end2="14" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="35" end1="36" start2="38" end2="39" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="37" end1="38" start2="40" end2="42" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="46" end1="48" start2="50" end2="52" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="50" end1="51" start2="54" end2="55" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="97" end1="98" start2="101" end2="105" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="99" end1="99" start2="106" end2="127" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="105" end1="105" start2="133" end2="134" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="106" end1="106" start2="135" end2="136" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+      </ranges>
+    </file>
+    <file path="$PROJECT_DIR$/src/tile/TileManager.java">
+      <ranges>
+        <range start1="14" end1="16" start2="14" end2="14" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="22" end1="30" start2="20" end2="21" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+        <range start1="34" end1="34" start2="25" end2="26" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="58" end1="58" start2="50" end2="51" changelist="19942d21-9fbb-48dc-a709-2056c4e389e5" />
+        <range start1="79" end1="79" start2="72" end2="84" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+      </ranges>
+    </file>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -67,6 +123,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -83,7 +140,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="game.Main" />
       <module name="FragmentsOfHomeNew" />
-      <option name="PROGRAM_PARAMETERS" value="polygon" />
+      <option name="PROGRAM_PARAMETERS" value="rectangle" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="game.CollisionChecking.*" />
@@ -191,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729882132184</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added PolygonCollisionChecker">
+      <option name="closed" value="true" />
+      <created>1729883384090</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1729883384090</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +271,8 @@
     <MESSAGE value="Fixed collision checker issues, reworked base structure of the code, cleaned up gamePanel, added new textures" />
     <MESSAGE value="Fixed warnings" />
     <MESSAGE value="Added interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added interface" />
+    <MESSAGE value="Added PolygonCollisionChecker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added PolygonCollisionChecker" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

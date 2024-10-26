@@ -1,6 +1,6 @@
 package player;
 
-import java.awt.*;
+import game.CollisionChecking.ISolid;
 
 public class Entity {
     public int spawnX, spawnY;
@@ -8,6 +8,7 @@ public class Entity {
     public int speed;
     public String direction;
 
-    public Rectangle solidArea;
+    public ISolid solid;
     public boolean collisionOn = false;
+    public boolean hasCollectedItem = false;
 }

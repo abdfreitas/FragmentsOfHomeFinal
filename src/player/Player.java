@@ -2,15 +2,15 @@ package player;
 
 import game.GamePanel;
 import game.KeyHandler;
-import graphics.Animation;
+import ui.graphics.Animation;
 import maze.Maze;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/*
-Player class creates a character that's movable by the user and is considered as an entity
-from the rest of the program and has personalized animations for each movement. The class also looks for any collisions
-between a solid area within the player and the maze, and allows and disables movement accordingly.
+/**
+ * Player class creates a character that's movable by the user and is considered as an entity
+ * from the rest of the program and has personalized animations for each movement. The class also looks for any collisions
+ * between a solid area within the player and the maze, and allows and disables movement accordingly.
  */
 
 public class Player extends Entity {
@@ -32,10 +32,15 @@ public class Player extends Entity {
         this.gamepanel = gp;
         this.keyhandler = keyhandler;
         this.maze = maze;
-        solidArea = new Rectangle(10, 27, 28, 21);
 
         setDefaultValues();
         loadAnimations();
+        hasCollectedItem = false;
+    }
+
+    // Display item status
+    public boolean hasCollectedItem() {
+        return hasCollectedItem;
     }
 
     /*
@@ -46,7 +51,7 @@ public class Player extends Entity {
         spawnY = 8 * gamepanel.tileSize - 10;
         playerX = spawnX;
         playerY = spawnY;
-        speed = 2;
+        speed = 3;
     }
 
     /*
@@ -70,7 +75,6 @@ public class Player extends Entity {
         if (keyhandler.upPressed || keyhandler.downPressed || keyhandler.leftPressed || keyhandler.rightPressed) {
             processInput();
             checkCollision();
-            //movePlayer();
         } else {
             animateIdle();
         }
@@ -123,7 +127,7 @@ public class Player extends Entity {
     public void checkCollision() {
         collisionOn = false;
 
-        if (playerX + solidArea.width >= maze.mazeStartX && playerX < maze.mazeEndX - gamepanel.tileSize &&
+        if (playerX >= maze.mazeStartX - gamepanel.tileSize && playerX < maze.mazeEndX - gamepanel.tileSize &&
                 playerY >= maze.mazeStartY - gamepanel.tileSize && playerY < maze.mazeEndY - gamepanel.tileSize) {
 
             gamepanel.collisionchecker.checkTile(this);

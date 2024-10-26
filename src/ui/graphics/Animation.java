@@ -1,4 +1,4 @@
-package graphics;
+package ui.graphics;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import java.util.Objects;
 Animation class loads the animation frames from a specific path and can be used to animate different objects in the game.
 The class also cycles through all the given sprites and updates the current frame using a spriteCounter.
  */
-
 public class Animation {
     private final BufferedImage[] frames;
     private final int frameCount;

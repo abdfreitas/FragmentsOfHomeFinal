@@ -1,14 +1,17 @@
 package game;
 
-import game.CollisionChecking.ICollisionChecker;
-import game.CollisionChecking.PolygonCollisionChecker;
-import game.CollisionChecking.SquareCollisionChecker;
+import game.CollisionChecking.ISolid;
+import game.CollisionChecking.PolygonSolid;
+import game.CollisionChecking.RectangleSolid;
+import key.KeyManager;
 import maze.Maze;
 import player.Player;
+import state.GameState;
 import tile.TileManager;
 import ui.Screen;
 import javax.swing.*;
 import java.awt.*;
+
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -33,9 +36,10 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tilemanager = new TileManager(screen, maze);
     KeyHandler keyhandler = new KeyHandler();
     Thread gamethread; // Keep playing the game until stopped
-    public ICollisionChecker collisionchecker;
+    public ISolid collisionchecker;
     public Player player = new Player(this, keyhandler, maze);
-
+    GameState state = new GameState(this, maze, player);
+    public KeyManager keyManager = new KeyManager(maze, tileSize); // New item manager
 
     public GamePanel(String collisionCheckerType) {
 
@@ -44,11 +48,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyhandler);
         this.setFocusable(true);
 
-        if (collisionCheckerType.equals("square")) {
-            collisionchecker = new SquareCollisionChecker(this, maze);
+        if (collisionCheckerType.equals("rectangle")) {
+            collisionchecker = new RectangleSolid(this, maze);
         }
         else if (collisionCheckerType.equals("polygon")) {
-            collisionchecker = new PolygonCollisionChecker(this, maze);
+            collisionchecker = new PolygonSolid(this, maze);
         }
         else {
             throw new IllegalArgumentException("Illegal collision checker type: " + collisionCheckerType);
@@ -95,7 +99,31 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if (state.playing) {
+            player.update();
+            checkItemCollection();
+        }
+    }
+
+    // Check if player has collected the item
+    public void checkItemCollection () {
+        if (keyManager.getKey() != null && !keyManager.getKey().isCollected()) {
+            int playerTileX = player.playerX / tileSize;
+            int playerTileY = player.playerY / tileSize;
+            //System.out.println("Player: " + playerTileX + " " + playerTileY);
+            int keyTileX = keyManager.getKey().getKeyX() / tileSize;
+            int keyTileY = keyManager.getKey().getKeyY() / tileSize;
+            //System.out.println("Key: " + keyTileX + " " + keyTileY);
+
+            // Check if player collects the key
+            keyManager.checkKeyCollision(player.playerX, player.playerY);
+
+            // Check if player's tile matches key's tile
+            if (playerTileX == keyTileX && playerTileY == keyTileY) {
+                keyManager.getKey().collect();
+                player.hasCollectedItem = true; // Set flag for collected key
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -103,7 +131,9 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
         screen.draw(g2);
         tilemanager.draw(g2, tileSize, maze.mazeStartX, maze.mazeStartY);
+        keyManager.draw(g2);
         player.draw(g2);
+        state.draw(g2);
         g2.dispose();
     }
 }

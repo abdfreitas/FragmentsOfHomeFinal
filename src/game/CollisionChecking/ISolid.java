@@ -2,7 +2,7 @@ package game.CollisionChecking;
 
 import player.Entity;
 
-public interface ICollisionChecker {
+public interface ISolid {
 
     public void checkTile(Entity entity);
 }

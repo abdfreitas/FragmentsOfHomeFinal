@@ -13,25 +13,17 @@ public class TileManager {
     public int[][] mapTileNum;
     Maze maze;
 
-
-
     public TileManager(Screen screen, Maze maze) {
         this.screen = screen;
         this.maze = maze;
         tile = new Tile[10];
         mapTileNum = new int[screen.maxScreenCol][screen.maxScreenRow];
-        for (int i = maze.mazeStartCol; i < maze.mazeStartCol + maze.getWidth(); i++) {
-            for (int j = maze.mazeStartRow; j < maze.mazeStartRow + maze.getHeight(); j++) {
-                int cell = maze.getMaze()[i- maze.mazeStartCol][j-maze.mazeStartRow];
-                if (cell == 0) {
-                    mapTileNum[i][j] = 3;
-                }
-            }
-        }
+        assignMazeGrid();
         getTileImage();
     }
 
     public void getTileImage() {
+
         try {
             // MAZE WALL
             tile[0] = new Tile();
@@ -57,6 +49,7 @@ public class TileManager {
         }
     }
 
+
     public void draw(Graphics g, int tileSize, int mazeStartX, int mazeStartY) {
 
         for (int x = 0; x < maze.getWidth(); x++) {
@@ -74,6 +67,18 @@ public class TileManager {
         for (int x = 23; x < screen.maxScreenCol; x++) {
             for (int y = 0; y < screen.maxScreenRow; y++) {
                 g.drawImage(tile[1].image, x * tileSize, y * tileSize, tileSize, tileSize, null);
+            }
+        }
+    }
+
+    public void assignMazeGrid() {
+
+        for (int i = maze.mazeStartCol; i < maze.mazeStartCol + maze.getWidth(); i++) {
+            for (int j = maze.mazeStartRow; j < maze.mazeStartRow + maze.getHeight(); j++) {
+                int cell = maze.getMaze()[i- maze.mazeStartCol][j-maze.mazeStartRow];
+                if (cell == 0) {
+                    mapTileNum[i][j] = 3;
+                }
             }
         }
     }
