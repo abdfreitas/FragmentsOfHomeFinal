@@ -1,0 +1,215 @@
+Index: src/player/Player.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package player;\r\n\r\n// IMPORT METHODS\r\nimport game.GamePanel;\r\nimport game.KeyHandler;\r\nimport maze.Maze;\r\n\r\nimport javax.imageio.ImageIO;\r\nimport java.awt.*;\r\nimport java.awt.image.BufferedImage;\r\nimport java.io.IOException;\r\n\r\n\r\npublic class Player extends Entity {\r\n    GamePanel gp;\r\n    KeyHandler keyH;\r\n\r\n    boolean isIdle = true;\r\n\r\n    public Player (GamePanel gp, KeyHandler keyH) {\r\n        this.gp = gp;\r\n        this.keyH = keyH;\r\n\r\n        // SOLID AREA FOR COLLISION CHECKER\r\n        solidArea = new Rectangle(10,27,28,21);\r\n         solidArea.x = 10;\r\n         solidArea.y = 27;\r\n         solidArea.width = 28;\r\n         solidArea.height = 21;\r\n\r\n        setDefaultValues();\r\n        getPlayerImage();\r\n    }\r\n\r\n    // PLAYER SPAWN POINT AND SPEED\r\n    public void setDefaultValues() {\r\n        spawnX = 1;\r\n        spawnY = 45;\r\n\r\n        playerX = spawnX;\r\n        playerY = spawnY;\r\n\r\n        speed = 2;\r\n        direction = \"down\";\r\n    }\r\n\r\n    // SPRITE IMAGES\r\n    public void getPlayerImage() {\r\n        try {\r\n            // IDLE IMAGES\r\n            idle1 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-1.png.png\"));\r\n            idle2 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-2.png.png\"));\r\n            idle3 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-3.png.png\"));\r\n            idle4 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-4.png.png\"));\r\n            idle5 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-5.png.png\"));\r\n            idle6 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-6.png.png\"));\r\n            idle7 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-7.png.png\"));\r\n            idle8 = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-8.png.png\"));\r\n\r\n            // RIGHT IMAGES\r\n            right1 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-1.png.png\"));\r\n            right2 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-2.png.png\"));\r\n            right3 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-3.png.png\"));\r\n            right4 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-4.png.png\"));\r\n            right5 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-5.png.png\"));\r\n            right6 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-6.png.png\"));\r\n            right7 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-7.png.png\"));\r\n            right8 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-8.png.png\"));\r\n            right9 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-9.png.png\"));\r\n            right10 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-10.png.png\"));\r\n            right11 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-11.png.png\"));\r\n            right12 = ImageIO.read(getClass().getResourceAsStream(\"/player/right-12.png.png\"));\r\n\r\n            // LEFT IMAGES\r\n            left1 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-1.png.png\"));\r\n            left2 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-2.png.png\"));\r\n            left3 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-3.png.png\"));\r\n            left4 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-4.png.png\"));\r\n            left5 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-5.png.png\"));\r\n            left6 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-6.png.png\"));\r\n            left7 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-7.png.png\"));\r\n            left8 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-8.png.png\"));\r\n            left9 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-9.png.png\"));\r\n            left10 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-10.png.png\"));\r\n            left11 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-11.png.png\"));\r\n            left12 = ImageIO.read(getClass().getResourceAsStream(\"/player/left-12.png.png\"));\r\n\r\n            // DOWN IMAGES\r\n            down1 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-1.png.png\"));\r\n            down2 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-2.png.png\"));\r\n            //down3 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-3.png.png\"));\r\n            down4 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-4.png.png\"));\r\n            down5 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-5.png.png\"));\r\n            //down6 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-6.png.png\"));\r\n            down7 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-7.png.png\"));\r\n            down8 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-8.png.png\"));\r\n            down9 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-9.png.png\"));\r\n            down10 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-10.png.png\"));\r\n            //down11 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-11.png.png\"));\r\n            down12 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-12.png.png\"));\r\n            down13 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-13.png.png\"));\r\n            //down14 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-14.png.png\"));\r\n            down15 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-15.png.png\"));\r\n            down16 = ImageIO.read(getClass().getResourceAsStream(\"/player/down-16.png.png\"));\r\n\r\n            // UP IMAGES\r\n            up1 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-1.png.png\"));\r\n            up2 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-2.png.png\"));\r\n            //up3 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-3.png.png\"));\r\n            up4 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-4.png.png\"));\r\n            up5 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-5.png.png\"));\r\n            //up6 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-6.png.png\"));\r\n            up7 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-7.png.png\"));\r\n            up8 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-8.png.png\"));\r\n            up9 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-9.png.png\"));\r\n            up10 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-10.png.png\"));\r\n            //up11 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-11.png.png\"));\r\n            up12 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-12.png.png\"));\r\n            up13 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-13.png.png\"));\r\n            //up14 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-14.png.png\"));\r\n            up15 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-15.png.png\"));\r\n            up16 = ImageIO.read(getClass().getResourceAsStream(\"/player/up-16.png.png\"));\r\n        }\r\n        catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    // PLAYER DIRECTION/MOVEMENT WITH KEY HANDLER\r\n    public void update() {\r\n\r\n        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {\r\n            isIdle = false;\r\n            if (keyH.upPressed) {\r\n                direction = \"up\";\r\n            } else if (keyH.downPressed) {\r\n                direction = \"down\";\r\n            } else if (keyH.leftPressed) {\r\n                direction = \"left\";\r\n            } else if (keyH.rightPressed) {\r\n                direction = \"right\";\r\n            }\r\n\r\n            // CHECK FOR TILE COLLISION\r\n            collisionOn = false;\r\n            gp.cChecker.checkTile(this);\r\n\r\n            // IF COLLISION IS FALSE, THE PLAYER CAN MOVE\r\n            if (!collisionOn) {\r\n                switch (direction) {\r\n                    case \"up\":\r\n                        playerY -= speed;\r\n                        break;\r\n                    case \"down\":\r\n                        playerY += speed;\r\n                        break;\r\n                    case \"left\":\r\n                        playerX -= speed;\r\n                        break;\r\n                    case \"right\":\r\n                        playerX += speed;\r\n                        break;\r\n                }\r\n            }\r\n\r\n            // ANIMATE PLAYER MOVEMENT\r\n            spriteCounter++;\r\n            if (spriteCounter > 8) {\r\n                spriteNum = (spriteNum % 12) + 1;\r\n                spriteCounter = 0;\r\n            }\r\n        } else {\r\n            // NO MOVEMENT. THE PLAYER IS IDLE\r\n            isIdle = true;\r\n            spriteCounter++;\r\n            if (spriteCounter > 8) {\r\n                spriteNum = (spriteNum % 8) + 1;\r\n                spriteCounter = 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    public void draw(Graphics2D g2) {\r\n        BufferedImage image = null;\r\n\r\n        if (isIdle) {\r\n            // SHOW IDLE ANIMATIONS\r\n            switch (spriteNum) {\r\n                case 1: image = idle1; break;\r\n                case 2: image = idle2; break;\r\n                case 3: image = idle3; break;\r\n                case 4: image = idle4; break;\r\n                case 5: image = idle5; break;\r\n                case 6: image = idle6; break;\r\n                case 7: image = idle7; break;\r\n                case 8: image = idle8; break;\r\n            }\r\n        }\r\n        else {\r\n            switch (direction) {\r\n                // SHOW WALKING ANIMATIONS\r\n                case \"up\":\r\n                    if (spriteNum == 1) {\r\n                        image = up1;\r\n                    }\r\n                    if (spriteNum == 2) {\r\n                        image = up2;\r\n                    }\r\n                    if (spriteNum == 3) {\r\n                        image = up4;\r\n                    }\r\n                    if (spriteNum == 4) {\r\n                        image = up5;\r\n                    }\r\n                    if (spriteNum == 5) {\r\n                        image = up7;\r\n                    }\r\n                    if (spriteNum == 6) {\r\n                        image = up8;\r\n                    }\r\n                    if (spriteNum == 7) {\r\n                        image = up9;\r\n                    }\r\n                    if (spriteNum == 8) {\r\n                        image = up10;\r\n                    }\r\n                    if (spriteNum == 9) {\r\n                        image = up12;\r\n                    }\r\n                    if (spriteNum == 10) {\r\n                        image = up13;\r\n                    }\r\n                    if (spriteNum == 11) {\r\n                        image = up15;\r\n                    }\r\n                    if (spriteNum == 12) {\r\n                        image = up16;\r\n                    }\r\n                    break;\r\n\r\n                case \"down\":\r\n                    if (spriteNum == 1) {\r\n                        image = down1;\r\n                    }\r\n                    if (spriteNum == 2) {\r\n                        image = down2;\r\n                    }\r\n                    if (spriteNum == 3) {\r\n                        image = down4;\r\n                    }\r\n                    if (spriteNum == 4) {\r\n                        image = down5;\r\n                    }\r\n                    if (spriteNum == 5) {\r\n                        image = down7;\r\n                    }\r\n                    if (spriteNum == 6) {\r\n                        image = down8;\r\n                    }\r\n                    if (spriteNum == 7) {\r\n                        image = down9;\r\n                    }\r\n                    if (spriteNum == 8) {\r\n                        image = down10;\r\n                    }\r\n                    if (spriteNum == 9) {\r\n                        image = down12;\r\n                    }\r\n                    if (spriteNum == 10) {\r\n                        image = down13;\r\n                    }\r\n                    if (spriteNum == 11) {\r\n                        image = down15;\r\n                    }\r\n                    if (spriteNum == 12) {\r\n                        image = down16;\r\n                    }\r\n                    break;\r\n\r\n                case \"left\":\r\n                    if (spriteNum == 1) {\r\n                        image = left1;\r\n                    }\r\n                    if (spriteNum == 2) {\r\n                        image = left2;\r\n                    }\r\n                    if (spriteNum == 3) {\r\n                        image = left3;\r\n                    }\r\n                    if (spriteNum == 4) {\r\n                        image = left4;\r\n                    }\r\n                    if (spriteNum == 5) {\r\n                        image = left5;\r\n                    }\r\n                    if (spriteNum == 6) {\r\n                        image = left6;\r\n                    }\r\n                    if (spriteNum == 7) {\r\n                        image = left7;\r\n                    }\r\n                    if (spriteNum == 8) {\r\n                        image = left8;\r\n                    }\r\n                    if (spriteNum == 9) {\r\n                        image = left9;\r\n                    }\r\n                    if (spriteNum == 10) {\r\n                        image = left10;\r\n                    }\r\n                    if (spriteNum == 11) {\r\n                        image = left11;\r\n                    }\r\n                    if (spriteNum == 12) {\r\n                        image = left12;\r\n                    }\r\n                    break;\r\n\r\n                case \"right\":\r\n                    if (spriteNum == 1) {\r\n                        image = right1;\r\n                    }\r\n                    if (spriteNum == 2) {\r\n                        image = right2;\r\n                    }\r\n                    if (spriteNum == 3) {\r\n                        image = right3;\r\n                    }\r\n                    if (spriteNum == 4) {\r\n                        image = right4;\r\n                    }\r\n                    if (spriteNum == 5) {\r\n                        image = right5;\r\n                    }\r\n                    if (spriteNum == 6) {\r\n                        image = right6;\r\n                    }\r\n                    if (spriteNum == 7) {\r\n                        image = right7;\r\n                    }\r\n                    if (spriteNum == 8) {\r\n                        image = right8;\r\n                    }\r\n                    if (spriteNum == 9) {\r\n                        image = right9;\r\n                    }\r\n                    if (spriteNum == 10) {\r\n                        image = right10;\r\n                    }\r\n                    if (spriteNum == 11) {\r\n                        image = right11;\r\n                    }\r\n                    if (spriteNum == 12) {\r\n                        image = right12;\r\n                    }\r\n                    break;\r\n\r\n            }\r\n        }\r\n        g2.drawImage(image, playerX, playerY, gp.playerSize, gp.playerSize, null);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/player/Player.java b/src/player/Player.java
+--- a/src/player/Player.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/player/Player.java	(date 1729610042889)
+@@ -140,10 +140,11 @@
+             } else if (keyH.rightPressed) {
+                 direction = "right";
+             }
++            //MAKE METHODS UP DOWN RIGHT LEFT
+ 
+             // CHECK FOR TILE COLLISION
+             collisionOn = false;
+-            gp.cChecker.checkTile(this);
++//            gp.cChecker.checkTile(this);
+ 
+             // IF COLLISION IS FALSE, THE PLAYER CAN MOVE
+             if (!collisionOn) {
+Index: src/items/Item_Key.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/items/Item_Key.java b/src/items/ItemKey.java
+rename from src/items/Item_Key.java
+rename to src/items/ItemKey.java
+--- a/src/items/Item_Key.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/items/ItemKey.java	(date 1729610042876)
+@@ -2,9 +2,9 @@
+ 
+ import javax.imageio.ImageIO;
+ 
+-public class Item_Key extends Item {
++public class ItemKey extends Item {
+ 
+-    public Item_Key() {
++    public ItemKey() {
+         name = "Key";
+         try {
+             image = ImageIO.read(getClass().getResourceAsStream("/items/Key.png"));
+@@ -14,4 +14,5 @@
+         }
+     }
+ 
++
+ }
+Index: src/game/CollisionChecker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport maze.Maze;\r\nimport player.Entity;\r\n\r\npublic class CollisionChecker {\r\n\r\n    Maze maze;\r\n    GamePanel gp;\r\n\r\n    public CollisionChecker(GamePanel gp, Maze maze) {\r\n        this.gp = gp;\r\n        this.maze = maze;\r\n    }\r\n\r\n    public void checkTile(Entity entity) {\r\n\r\n        // Calculate entity's edges using playerX and playerY\r\n        int entityLeftWorldX = entity.playerX + entity.solidArea.x;\r\n        int entityRightWorldX = entity.playerX + entity.solidArea.x + entity.solidArea.width;\r\n        int entityTopWorldY = entity.playerY + entity.solidArea.y;\r\n        int entityBottomWorldY = entity.playerY + entity.solidArea.y + entity.solidArea.height;\r\n\r\n        // Convert to tile coordinates\r\n        int entityLeftCol = entityLeftWorldX / gp.tileSize;\r\n        int entityRightCol = entityRightWorldX / gp.tileSize;\r\n        int entityTopRow = entityTopWorldY / gp.tileSize;\r\n        int entityBottomRow = entityBottomWorldY / gp.tileSize;\r\n\r\n        // Collision tile numbers\r\n        int tileNum1, tileNum2;\r\n\r\n        switch (entity.direction) {\r\n            case \"up\":\r\n                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"down\":\r\n                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"left\":\r\n                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"right\":\r\n                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/CollisionChecker.java b/src/game/CollisionChecker.java
+--- a/src/game/CollisionChecker.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/game/CollisionChecker.java	(date 1729609233650)
+@@ -13,59 +13,10 @@
+         this.maze = maze;
+     }
+ 
+-    public void checkTile(Entity entity) {
+-
+-        // Calculate entity's edges using playerX and playerY
+-        int entityLeftWorldX = entity.playerX + entity.solidArea.x;
+-        int entityRightWorldX = entity.playerX + entity.solidArea.x + entity.solidArea.width;
+-        int entityTopWorldY = entity.playerY + entity.solidArea.y;
+-        int entityBottomWorldY = entity.playerY + entity.solidArea.y + entity.solidArea.height;
+ 
+-        // Convert to tile coordinates
+-        int entityLeftCol = entityLeftWorldX / gp.tileSize;
+-        int entityRightCol = entityRightWorldX / gp.tileSize;
+-        int entityTopRow = entityTopWorldY / gp.tileSize;
+-        int entityBottomRow = entityBottomWorldY / gp.tileSize;
+ 
+-        // Collision tile numbers
+-        int tileNum1, tileNum2;
++//}
+ 
+-        switch (entity.direction) {
+-            case "up":
+-                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+-                    entity.collisionOn = true; // Collision detected
+-                }
+-                break;
++//convex polygon shape
++//
+ 
+-            case "down":
+-                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+-                    entity.collisionOn = true; // Collision detected
+-                }
+-                break;
+-
+-            case "left":
+-                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+-                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+-                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+-                    entity.collisionOn = true; // Collision detected
+-                }
+-                break;
+-
+-            case "right":
+-                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
+-                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+-                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+-                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+-                    entity.collisionOn = true; // Collision detected
+-                }
+-                break;
+-        }
+-    }
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"progress\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/GamePanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/GamePanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/maze/Maze.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/maze/Maze.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Player.java\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" name=\"Changes by 20241481\" comment=\"Changes by 20241481\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;abdfreitas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/abdfreitas/FragmentsOfHomeFinal.git&quot;,\r\n    &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nktEf2k7ZhYI4Sm9zaanW6PpEA\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\tiles\" />\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\player\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"\" />\r\n      <created>1729528794645</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1729528794645</updated>\r\n      <workItem from=\"1729528795694\" duration=\"14371000\" />\r\n      <workItem from=\"1729600359222\" duration=\"1678000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"added packages, classes, methods and res\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729530087914</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729530087914</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542685509</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542685509</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542958788</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542958788</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"added packages, classes, methods and res\" />\r\n    <MESSAGE value=\"Changes by 20241481\" />\r\n    <MESSAGE value=\"progress\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"progress\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/.idea/workspace.xml	(date 1729712120462)
+@@ -4,13 +4,17 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
++    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="item key">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/game/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/AssetSetter.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/ItemKey.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
++    </list>
++    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
+       <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+     </list>
+-    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -38,6 +42,18 @@
+     &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;
+   }
+ }</component>
++  <component name="LineStatusTrackerManager">
++    <file path="$PROJECT_DIR$/src/game/CollisionChecker.java">
++      <ranges>
++        <range start1="0" end1="14" start2="0" end2="50" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
++        <range start1="15" end1="22" start2="51" end2="51" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
++        <range start1="23" end1="28" start2="52" end2="52" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
++        <range start1="29" end1="31" start2="53" end2="54" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
++        <range start1="32" end1="41" start2="55" end2="57" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
++        <range start1="42" end1="71" start2="58" end2="58" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
++      </ranges>
++    </file>
++  </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+@@ -88,6 +104,7 @@
+       <updated>1729528794645</updated>
+       <workItem from="1729528795694" duration="14371000" />
+       <workItem from="1729600359222" duration="1678000" />
++      <workItem from="1729710845774" duration="1205000" />
+     </task>
+     <task id="LOCAL-00001" summary="added packages, classes, methods and res">
+       <option name="closed" value="true" />
+Index: src/game/AssetSetter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item_Key;\r\n\r\npublic class AssetSetter {\r\n\r\n    GamePanel gp;\r\n\r\n    public AssetSetter(GamePanel gp) {\r\n        this.gp = gp;\r\n    }\r\n\r\n    // MAKE THESE VALUES RANDOM\r\n    public void setObject() {\r\n        gp.itm[0] = new Item_Key();\r\n        gp.itm[0].worldX = 23 * gp.tileSize;\r\n        gp.itm[0].worldY = 7 * gp.tileSize;\r\n\r\n        gp.itm[1] = new Item_Key();\r\n        gp.itm[1].worldX = 23 * gp.tileSize;\r\n        gp.itm[1].worldY = 7 * gp.tileSize;\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/AssetSetter.java b/src/game/AssetSetter.java
+--- a/src/game/AssetSetter.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/game/AssetSetter.java	(date 1729610042881)
+@@ -1,6 +1,6 @@
+ package game;
+ 
+-import items.Item_Key;
++import items.ItemKey;
+ 
+ public class AssetSetter {
+ 
+@@ -12,11 +12,11 @@
+ 
+     // MAKE THESE VALUES RANDOM
+     public void setObject() {
+-        gp.itm[0] = new Item_Key();
++        gp.itm[0] = new ItemKey();
+         gp.itm[0].worldX = 23 * gp.tileSize;
+         gp.itm[0].worldY = 7 * gp.tileSize;
+ 
+-        gp.itm[1] = new Item_Key();
++        gp.itm[1] = new ItemKey();
+         gp.itm[1].worldX = 23 * gp.tileSize;
+         gp.itm[1].worldY = 7 * gp.tileSize;
+     }

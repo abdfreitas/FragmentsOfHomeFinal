@@ -1,0 +1,222 @@
+Index: src/player/Player.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package player;\r\n\r\nimport game.GamePanel;\r\nimport game.KeyHandler;\r\nimport graphics.Animation;\r\nimport java.awt.*;\r\nimport java.awt.image.BufferedImage;\r\n\r\n/*\r\nPlayer class creates a character that's movable by the user and is considered as an entity\r\nfrom the rest of the program and has personalized animations for each movement. The class also looks for any collisions\r\nbetween a solid area within the player and the maze, and allows and disables movement accordingly.\r\n */\r\n\r\npublic class Player extends Entity {\r\n    GamePanel gamepanel;\r\n    KeyHandler keyhandler;\r\n    boolean isIdle = true;\r\n\r\n    /*\r\n    Arrays to store images for animating the player in different movement states.\r\n    */\r\n    Animation idleAnimation;\r\n    Animation upAnimation;\r\n    Animation downAnimation;\r\n    Animation leftAnimation;\r\n    Animation rightAnimation;\r\n\r\n    public Player(GamePanel gp, KeyHandler keyhandler) {\r\n        this.gamepanel = gp;\r\n        this.keyhandler = keyhandler;\r\n        solidArea = new Rectangle(10, 27, 28, 21);\r\n\r\n        setDefaultValues();\r\n        loadAnimations();\r\n    }\r\n\r\n    /*\r\n   Sets the initial values for the player's position and speed.\r\n   */\r\n    public void setDefaultValues() {\r\n        spawnX = 1;\r\n        spawnY = 45;\r\n        playerX = spawnX;\r\n        playerY = spawnY;\r\n        speed = 2;\r\n    }\r\n\r\n    /*\r\n    Initializes all player animations.\r\n    */\r\n    public void loadAnimations() {\r\n        idleAnimation = new Animation(\"/player/idle-\", 8, 8);\r\n        upAnimation = new Animation(\"/player/up-\", 12, 8);\r\n        downAnimation = new Animation(\"/player/down-\", 12, 8);\r\n        leftAnimation = new Animation(\"/player/left-\", 12, 8);\r\n        rightAnimation = new Animation(\"/player/right-\", 12, 8);\r\n    }\r\n\r\n    /*\r\n    Updates the player's movement state based on input and handles animation.\r\n    - Checks if movement keys are pressed to update the player's position.\r\n    - If a key is pressed, the input is processed, collision is checked, and movement animation plays.\r\n    - If no pressed keys, the player remains idle and the idle animation plays.\r\n    */\r\n    public void update() {\r\n        if (keyhandler.upPressed || keyhandler.downPressed || keyhandler.leftPressed || keyhandler.rightPressed) {\r\n            processInput();\r\n            checkCollision();\r\n        } else {\r\n            animateIdle();\r\n        }\r\n    }\r\n\r\n    /*\r\n    Draws the player on the screen using the appropriate animation frame.\r\n    */\r\n    public void draw(Graphics2D g2) {\r\n        BufferedImage image;\r\n        if (isIdle) {\r\n            image = idleAnimation.getNextFrame();\r\n        } else {\r\n            image = movementSprites();\r\n        }\r\n        g2.drawImage(image, playerX, playerY, gamepanel.playerSize, gamepanel.playerSize, null);\r\n    }\r\n\r\n    /*\r\n    Processes player input to determine movement direction.\r\n    - isIdle is set to false if any movement key is pressed.\r\n    - direction is updated to reflect the key pressed (up, down, left, right).\r\n    */\r\n    public void processInput() {\r\n        isIdle = false;\r\n        if (keyhandler.upPressed) direction = \"up\";\r\n        else if (keyhandler.downPressed) direction = \"down\";\r\n        else if (keyhandler.leftPressed) direction = \"left\";\r\n        else if (keyhandler.rightPressed) direction = \"right\";\r\n    }\r\n\r\n    /*\r\n    Moves the player in the current direction based on the speed value.\r\n    - Adjusts the player's position on the X or Y axis depending on the direction.\r\n    */\r\n    public void movePlayer() {\r\n        if (direction.equals(\"up\")) playerY -= speed;\r\n        else if (direction.equals(\"down\")) playerY += speed;\r\n        else if (direction.equals(\"left\")) playerX -= speed;\r\n        else if (direction.equals(\"right\")) playerX += speed;\r\n    }\r\n\r\n    /*\r\n    Checks for collisions between the player and the environment (e.g., walls).\r\n    - If a collision is detected, the player does not move.\r\n    - If no collision is detected, the player moves.\r\n    */\r\n    public void checkCollision() {\r\n        collisionOn = false;\r\n        if (playerX >= gamepanel.mazeStartX && playerX < gamepanel.mazeEndX &&\r\n                playerY >= gamepanel.mazeStartY && playerY < gamepanel.mazeEndY) {\r\n            gamepanel.collisionchecker.checkTile(this);\r\n//            playerX = playerX - 1;\r\n//            playerY = playerY - 1;\r\n        }\r\n        // Debugging\r\n        System.out.println(\"Player position: (\" + playerX + \", \" + playerY + \")\");\r\n        System.out.println(\"Collision status: \" + collisionOn);\r\n        //System.out.println(\"Current playerX and playerY: \" + playerX + \", \" + playerY);\r\n\r\n        if (!collisionOn) {\r\n            movePlayer();\r\n        }\r\n    }\r\n\r\n    /*\r\n    Returns the appropriate movement animation frames based on the player's direction.\r\n    - Uses a switch statement to determine the correct frames for each direction.\r\n    */\r\n    public BufferedImage movementSprites() {\r\n        return switch (direction) {\r\n            case \"up\" -> upAnimation.getNextFrame();\r\n            case \"down\" -> downAnimation.getNextFrame();\r\n            case \"left\" -> leftAnimation.getNextFrame();\r\n            case \"right\" -> rightAnimation.getNextFrame();\r\n            default -> null;\r\n        };\r\n    }\r\n\r\n    /*\r\n    If the idle is being animated, that means the player is idle.\r\n     */\r\n    public void animateIdle() {\r\n        isIdle = true;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/player/Player.java b/src/player/Player.java
+--- a/src/player/Player.java	(revision d509fca96a2a801118b0bd284e88daadd80b8500)
++++ b/src/player/Player.java	(date 1729787447995)
+@@ -29,7 +29,8 @@
+     public Player(GamePanel gp, KeyHandler keyhandler) {
+         this.gamepanel = gp;
+         this.keyhandler = keyhandler;
+-        solidArea = new Rectangle(10, 27, 28, 21);
++//        solidArea = new Rectangle(10, 27, 28, 21);
++        solidArea = new Rectangle(15, 30, 18, 9);
+ 
+         setDefaultValues();
+         loadAnimations();
+@@ -39,8 +40,8 @@
+    Sets the initial values for the player's position and speed.
+    */
+     public void setDefaultValues() {
+-        spawnX = 1;
+-        spawnY = 45;
++        spawnX = gamepanel.tileSize;
++        spawnY = 3 * gamepanel.tileSize;
+         playerX = spawnX;
+         playerY = spawnY;
+         speed = 2;
+@@ -66,6 +67,7 @@
+     public void update() {
+         if (keyhandler.upPressed || keyhandler.downPressed || keyhandler.leftPressed || keyhandler.rightPressed) {
+             processInput();
++            collisionOn = false; // Reset collision check before movement
+             checkCollision();
+         } else {
+             animateIdle();
+@@ -103,10 +105,12 @@
+     - Adjusts the player's position on the X or Y axis depending on the direction.
+     */
+     public void movePlayer() {
+-        if (direction.equals("up")) playerY -= speed;
+-        else if (direction.equals("down")) playerY += speed;
+-        else if (direction.equals("left")) playerX -= speed;
+-        else if (direction.equals("right")) playerX += speed;
++        switch (direction) {
++            case "up" -> playerY -= speed;
++            case "down" -> playerY += speed;
++            case "left" -> playerX -= speed;
++            case "right" -> playerX += speed;
++        }
+     }
+ 
+     /*
+@@ -119,17 +123,13 @@
+         if (playerX >= gamepanel.mazeStartX && playerX < gamepanel.mazeEndX &&
+                 playerY >= gamepanel.mazeStartY && playerY < gamepanel.mazeEndY) {
+             gamepanel.collisionchecker.checkTile(this);
+-//            playerX = playerX - 1;
+-//            playerY = playerY - 1;
++        }
++        if (!collisionOn) {
++            movePlayer();
+         }
+         // Debugging
+         System.out.println("Player position: (" + playerX + ", " + playerY + ")");
+         System.out.println("Collision status: " + collisionOn);
+-        //System.out.println("Current playerX and playerY: " + playerX + ", " + playerY);
+-
+-        if (!collisionOn) {
+-            movePlayer();
+-        }
+     }
+ 
+     /*
+Index: src/tile/TileManager.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package tile;\r\n\r\nimport game.GamePanel;\r\nimport maze.Maze;\r\nimport javax.imageio.ImageIO;\r\nimport java.awt.Graphics;\r\nimport java.awt.*;\r\nimport java.io.*;\r\nimport java.util.*;\r\n\r\npublic class TileManager {\r\n\r\n    GamePanel gp;\r\n    public Tile[] tile;\r\n    public int mapTileNum[][];\r\n    private Maze maze;\r\n\r\n    public TileManager(GamePanel gp, Maze maze) {\r\n        this.gp = gp;\r\n        this.maze = maze;\r\n        tile = new Tile[10];\r\n        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];\r\n\r\n        getTileImage();\r\n    }\r\n\r\n    public void getTileImage() {\r\n        try {\r\n            // MAZE WALL\r\n            tile[0] = new Tile();\r\n            tile[0].image = ImageIO.read(new File(\"res/tiles/MazeWallTile.png\"));\r\n            tile[0].collision = true;\r\n\r\n            // START TILE\r\n            tile[1] = new Tile();\r\n            tile[1].image = ImageIO.read(new File(\"res/tiles/StartTile.png\"));\r\n\r\n            // WIN TILE\r\n            tile[2] = new Tile();\r\n            tile[2].image = ImageIO.read(new File(\"res/tiles/WinTile.png\"));\r\n\r\n            // BASIC PATH\r\n            tile[3] = new Tile();\r\n            tile[3].image = ImageIO.read(new File(\"res/tiles/BasicPath.png\"));\r\n            tile[3].collision = false;\r\n\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public void draw(Graphics g, int tileSize, int mazeStartX, int mazeStartY) {\r\n        for (int x = 0; x < maze.getWidth(); x++) {\r\n            for (int y = 0; y < maze.getHeight(); y++) {\r\n                int cellType = maze.getMaze()[x][y];\r\n\r\n                // Debugging\r\n                // System.out.println(\"Drawing tile at (\" + x + \", \" + y + \"): \" + (cellType == Maze.WALL ? \"WALL\" : \"PATH\"));\r\n                if (cellType == Maze.WALL) {\r\n                    g.drawImage(tile[0].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);\r\n                } else if (cellType == Maze.PATH) {\r\n                    // Debugging\r\n                    // System.out.println(\"Path tile at (\" + x + \", \" + y + \").\");\r\n                    g.drawImage(tile[3].image,mazeStartX + (x * tileSize), mazeStartY + (y * tileSize), tileSize, tileSize,null);\r\n                }\r\n            }\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/tile/TileManager.java b/src/tile/TileManager.java
+--- a/src/tile/TileManager.java	(revision d509fca96a2a801118b0bd284e88daadd80b8500)
++++ b/src/tile/TileManager.java	(date 1729786590029)
+@@ -2,6 +2,8 @@
+ 
+ import game.GamePanel;
+ import maze.Maze;
++import player.Entity;
++import player.Player;
+ import javax.imageio.ImageIO;
+ import java.awt.Graphics;
+ import java.awt.*;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"trial\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/graphics/Animation.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/AssetSetter.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/GamePanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/GamePanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/KeyHandler.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/KeyHandler.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/items/Item.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/items/Item_Key.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/maze/MazeGenerator.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/maze/MazeGenerator.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Entity.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Entity.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Player.java\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" name=\"Changes by 20241481\" comment=\"Changes by 20241481\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/GamePanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/GamePanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/maze/Maze.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/maze/Maze.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Player.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;abdfreitas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/abdfreitas/FragmentsOfHomeFinal.git&quot;,\r\n    &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"LineStatusTrackerManager\">\r\n    <file path=\"$PROJECT_DIR$/src/player/Player.java\">\r\n      <ranges>\r\n        <range start1=\"1\" end1=\"2\" start2=\"1\" end2=\"2\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"4\" end1=\"6\" start2=\"4\" end2=\"5\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"8\" end1=\"9\" start2=\"7\" end2=\"7\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"10\" end1=\"10\" start2=\"8\" end2=\"13\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"12\" end1=\"15\" start2=\"15\" end2=\"17\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"17\" end1=\"23\" start2=\"19\" end2=\"27\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"24\" end1=\"34\" start2=\"28\" end2=\"32\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"36\" end1=\"37\" start2=\"34\" end2=\"35\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"39\" end1=\"40\" start2=\"37\" end2=\"40\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"43\" end1=\"44\" start2=\"43\" end2=\"43\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"46\" end1=\"47\" start2=\"45\" end2=\"45\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"48\" end1=\"58\" start2=\"46\" end2=\"47\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"59\" end1=\"65\" start2=\"48\" end2=\"58\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"66\" end1=\"72\" start2=\"59\" end2=\"65\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"73\" end1=\"73\" start2=\"66\" end2=\"73\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"74\" end1=\"85\" start2=\"74\" end2=\"110\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"86\" end1=\"88\" start2=\"111\" end2=\"120\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"89\" end1=\"113\" start2=\"121\" end2=\"136\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"114\" end1=\"162\" start2=\"137\" end2=\"156\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"164\" end1=\"164\" start2=\"158\" end2=\"159\" changelist=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" />\r\n      </ranges>\r\n    </file>\r\n    <file path=\"$PROJECT_DIR$/src/game/GamePanel.java\">\r\n      <ranges>\r\n        <range start1=\"2\" end1=\"3\" start2=\"2\" end2=\"2\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"6\" end1=\"8\" start2=\"5\" end2=\"5\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"38\" end1=\"38\" start2=\"35\" end2=\"39\" changelist=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" />\r\n        <range start1=\"42\" end1=\"44\" start2=\"43\" end2=\"45\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"46\" end1=\"48\" start2=\"47\" end2=\"47\" changelist=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" />\r\n        <range start1=\"49\" end1=\"54\" start2=\"48\" end2=\"51\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"62\" end1=\"63\" start2=\"59\" end2=\"60\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"66\" end1=\"69\" start2=\"63\" end2=\"64\" changelist=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" />\r\n        <range start1=\"71\" end1=\"73\" start2=\"66\" end2=\"68\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"86\" end1=\"87\" start2=\"81\" end2=\"82\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n        <range start1=\"116\" end1=\"117\" start2=\"111\" end2=\"112\" changelist=\"9601e060-58b8-4f47-85bc-8d0505907e09\" />\r\n      </ranges>\r\n    </file>\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nktEf2k7ZhYI4Sm9zaanW6PpEA\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\tiles\" />\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\player\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"\" />\r\n      <created>1729528794645</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1729528794645</updated>\r\n      <workItem from=\"1729528795694\" duration=\"14371000\" />\r\n      <workItem from=\"1729600359222\" duration=\"1678000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"added packages, classes, methods and res\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729530087914</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729530087914</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542685509</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542685509</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542958788</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542958788</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729604831913</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729604831913</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729711990856</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729711990856</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"trial\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729712604573</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729712604573</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"added packages, classes, methods and res\" />\r\n    <MESSAGE value=\"Changes by 20241481\" />\r\n    <MESSAGE value=\"progress\" />\r\n    <MESSAGE value=\"trial\" />\r\n    <MESSAGE value=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d509fca96a2a801118b0bd284e88daadd80b8500)
++++ b/.idea/workspace.xml	(date 1730032813509)
+@@ -4,25 +4,13 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="trial">
+-      <change afterPath="$PROJECT_DIR$/src/graphics/Animation.java" afterDir="false" />
++    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="refactored player class, added animation class, added player and animation documentation">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/AssetSetter.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/KeyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/KeyHandler.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/items/Item.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/maze/MazeGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/MazeGenerator.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/player/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Entity.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+-    </list>
+-    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
+-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
+     </list>
++    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -50,47 +38,6 @@
+     &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;
+   }
+ }</component>
+-  <component name="LineStatusTrackerManager">
+-    <file path="$PROJECT_DIR$/src/player/Player.java">
+-      <ranges>
+-        <range start1="1" end1="2" start2="1" end2="2" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="4" end1="6" start2="4" end2="5" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="8" end1="9" start2="7" end2="7" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="10" end1="10" start2="8" end2="13" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="12" end1="15" start2="15" end2="17" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="17" end1="23" start2="19" end2="27" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="24" end1="34" start2="28" end2="32" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="36" end1="37" start2="34" end2="35" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="39" end1="40" start2="37" end2="40" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="43" end1="44" start2="43" end2="43" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="46" end1="47" start2="45" end2="45" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="48" end1="58" start2="46" end2="47" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="59" end1="65" start2="48" end2="58" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="66" end1="72" start2="59" end2="65" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="73" end1="73" start2="66" end2="73" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="74" end1="85" start2="74" end2="110" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="86" end1="88" start2="111" end2="120" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="89" end1="113" start2="121" end2="136" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="114" end1="162" start2="137" end2="156" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="164" end1="164" start2="158" end2="159" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+-      </ranges>
+-    </file>
+-    <file path="$PROJECT_DIR$/src/game/GamePanel.java">
+-      <ranges>
+-        <range start1="2" end1="3" start2="2" end2="2" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="6" end1="8" start2="5" end2="5" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="38" end1="38" start2="35" end2="39" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+-        <range start1="42" end1="44" start2="43" end2="45" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="46" end1="48" start2="47" end2="47" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+-        <range start1="49" end1="54" start2="48" end2="51" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="62" end1="63" start2="59" end2="60" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="66" end1="69" start2="63" end2="64" changelist="a2e936bd-8990-48a0-a9b7-9a739157ce62" />
+-        <range start1="71" end1="73" start2="66" end2="68" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="86" end1="87" start2="81" end2="82" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-        <range start1="116" end1="117" start2="111" end2="112" changelist="9601e060-58b8-4f47-85bc-8d0505907e09" />
+-      </ranges>
+-    </file>
+-  </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 3
+ }</component>
+@@ -141,6 +88,8 @@
+       <updated>1729528794645</updated>
+       <workItem from="1729528795694" duration="14371000" />
+       <workItem from="1729600359222" duration="1678000" />
++      <workItem from="1729951829642" duration="1796000" />
++      <workItem from="1730023495301" duration="2587000" />
+     </task>
+     <task id="LOCAL-00001" summary="added packages, classes, methods and res">
+       <option name="closed" value="true" />
+@@ -190,7 +139,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1729712604573</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="refactored player class, added animation class, added player and animation documentation">
++      <option name="closed" value="true" />
++      <created>1729785272953</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1729785272953</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -200,8 +157,9 @@
+     <MESSAGE value="added packages, classes, methods and res" />
+     <MESSAGE value="Changes by 20241481" />
+     <MESSAGE value="progress" />
+-    <MESSAGE value="trial" />
+     <MESSAGE value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Fixed image names and sprite flicker, maze generates borders and an entrance and exit now" />
++    <MESSAGE value="trial" />
++    <MESSAGE value="refactored player class, added animation class, added player and animation documentation" />
++    <option name="LAST_COMMIT_MESSAGE" value="refactored player class, added animation class, added player and animation documentation" />
+   </component>
+ </project>
+\ No newline at end of file

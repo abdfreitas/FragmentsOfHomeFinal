@@ -1,0 +1,106 @@
+Index: src/game/CollisionChecker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport maze.Maze;\r\nimport player.Entity;\r\n\r\npublic class CollisionChecker {\r\n\r\n    Maze maze;\r\n    GamePanel gp;\r\n\r\n    public CollisionChecker(GamePanel gp, Maze maze) {\r\n        this.gp = gp;\r\n        this.maze = maze;\r\n    }\r\n\r\n    public void checkTile(Entity entity) {\r\n\r\n        // Calculate entity's edges using playerX and playerY\r\n        int entityLeftWorldX = entity.playerX + entity.solidArea.x;\r\n        int entityRightWorldX = entity.playerX + entity.solidArea.x + entity.solidArea.width;\r\n        int entityTopWorldY = entity.playerY + entity.solidArea.y;\r\n        int entityBottomWorldY = entity.playerY + entity.solidArea.y + entity.solidArea.height;\r\n\r\n        // Convert to tile coordinates\r\n        int entityLeftCol = entityLeftWorldX / gp.tileSize;\r\n        int entityRightCol = entityRightWorldX / gp.tileSize;\r\n        int entityTopRow = entityTopWorldY / gp.tileSize;\r\n        int entityBottomRow = entityBottomWorldY / gp.tileSize;\r\n\r\n        // Collision tile numbers\r\n        int tileNum1, tileNum2;\r\n\r\n        switch (entity.direction) {\r\n            case \"up\":\r\n                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"down\":\r\n                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"left\":\r\n                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n\r\n            case \"right\":\r\n                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;\r\n                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];\r\n                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];\r\n                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {\r\n                    entity.collisionOn = true; // Collision detected\r\n                }\r\n                break;\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/CollisionChecker.java b/src/game/CollisionChecker.java
+--- a/src/game/CollisionChecker.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/game/CollisionChecker.java	(date 1729609233650)
+@@ -1,17 +1,53 @@
+-package game;
+-
+-import maze.Maze;
+-import player.Entity;
+-
+-public class CollisionChecker {
+-
+-    Maze maze;
+-    GamePanel gp;
+-
+-    public CollisionChecker(GamePanel gp, Maze maze) {
+-        this.gp = gp;
+-        this.maze = maze;
+-    }
++//package game;
++//
++//import maze.Maze;
++//import player.Entity;
++//
++//public class CollisionChecker {
++//
++//    private Maze maze;
++//    private GamePanel gp;
++//
++//    public CollisionChecker(GamePanel gp, Maze maze) {
++//        this.gp = gp;
++//        this.maze = maze;
++//    }
++//
++//    public void checkTile(Entity entity) {
++//        // CALCULATE THE ENTITY'S EDGES COORDINATES USING PLAYER SOLID AREA
++//        int entityLeftWorldX = entity.playerX + entity.solidArea.x;
++//        int entityRightWorldX = entity.playerX + entity.solidArea.x + entity.solidArea.width;
++//        int entityTopWorldY = entity.playerY + entity.solidArea.y;
++//        int entityBottomWorldY = entity.playerY + entity.solidArea.y + entity.solidArea.height;
++//
++//        // CONVERT TO TILE COORDINATES WITH ROWS AND COLS
++//        int entityLeftCol = entityLeftWorldX / gp.tileSize;
++//        int entityRightCol = entityRightWorldX / gp.tileSize;
++//        int entityTopRow = entityTopWorldY / gp.tileSize;
++//        int entityBottomRow = entityBottomWorldY / gp.tileSize;
++//
++//        // RESET COLLISION FLAG BEFORE CHECKING
++//        entity.collisionOn = false;
++//
++//        // COLLISION DETECTION BASED ON DIRECTION
++//        switch (entity.direction) {
++//            case "up":
++//                // CHECK THE TILES ABOVE THE ENTITY
++//                int tileNumUp1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
++//                int tileNumUp2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
++//                checkTileCollision(entity, tileNumUp1, tileNumUp2);
++//                break;
++//
++//            case "down":
++//                // CHECK THE
++//        }
++//
++//    }
++//
++//    private void checkTileCollision(Entity entity, int tileNum1, int tileNum2) {
++//        // IF EITHER TILE COLLIDES, SET COLLISION FLAG TO TRUE
++//        if (tileNum1 >= 0 && tileNum1 < gp.tileM.tile.length && ) {}
++//    }
+ 
+     public void checkTile(Entity entity) {
+ 
+Index: src/game/GamePanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item;\r\nimport maze.Maze;\r\nimport player.Player;\r\nimport tile.TileManager;\r\n\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class GamePanel extends JPanel implements Runnable {\r\n\r\n    // SCREEN SETTINGS\r\n    // TILE SIZE\r\n    final int originalTileSize = 16; // 16x16 tile (default size of player, items, map tiles)\r\n    final int scale = 3;\r\n    // PLAYER SIZE\r\n    final int originalPlayerSize = 16;\r\n    final int playerScale = 3;\r\n\r\n    // SCALING FOR TILES AND PLAYER\r\n    public final int tileSize = originalTileSize * scale; // 48x48 tile\r\n    public final int playerSize = originalPlayerSize * playerScale; // 48x48 player\r\n    // SCREEN DIMENSIONS\r\n    public final int maxScreenCol = 28;\r\n    public final int maxScreenRow = 18;\r\n    final int screenWidth = tileSize * maxScreenCol; // 1344 pixels\r\n    final int screenHeight = tileSize * maxScreenRow; // 864 pixels\r\n\r\n    // MAZE DIMENSIONS\r\n    private final int mazeWidth = 19;\r\n    private final int mazeHeight = 14;\r\n    private int mazeStartCol = 2;\r\n    private int mazeStartRow = 2;\r\n\r\n    private final int mazeStartX = mazeStartCol * tileSize;\r\n    private final int mazeStartY = mazeStartRow * tileSize;\r\n\r\n    // FPS\r\n    int FPS = 60;\r\n\r\n    KeyHandler keyH = new KeyHandler();\r\n    Thread gameThread; // Keep playing the game until stopped\r\n\r\n    //ITEMS\r\n    public Item itm[] = new Item[10];\r\n    public AssetSetter aSetter = new AssetSetter(this);\r\n    Maze maze = new Maze(mazeWidth, mazeHeight);\r\n    TileManager tileM = new TileManager(this, maze);\r\n    public CollisionChecker cChecker = new CollisionChecker(this, maze);\r\n    public Player player = new Player(this, keyH);\r\n\r\n\r\n\r\n\r\n\r\n    public GamePanel() {\r\n\r\n        this.setPreferredSize(new Dimension(screenWidth, screenHeight));\r\n        this.setBackground(Color.green);\r\n        this.setDoubleBuffered(true);\r\n        this.addKeyListener(keyH);\r\n        this.setFocusable(true);\r\n    }\r\n\r\n    public void setupGame() {\r\n        aSetter.setObject();\r\n    }\r\n\r\n    public void startGameThread() {\r\n        gameThread = new Thread(this);\r\n        gameThread.start();\r\n    }\r\n\r\n    // DELTA GAME LOOP\r\n    @Override\r\n    public void run() {\r\n\r\n        double drawInterval = 1000000000 / FPS;\r\n        double delta = 0;\r\n        double lastTime = System.nanoTime();\r\n        long currentTime;\r\n        long timer = 0;\r\n        int drawCount = 0;\r\n\r\n        while (gameThread != null) {\r\n\r\n            currentTime = System.nanoTime();\r\n\r\n            delta += (currentTime - lastTime) / drawInterval;\r\n            timer += (long) (currentTime - lastTime);\r\n            lastTime = currentTime;\r\n\r\n            if (delta >= 1) {\r\n                update();\r\n                repaint();\r\n                delta--;\r\n                drawCount++;\r\n            }\r\n\r\n            if (timer >= 1000000000) {\r\n                //System.out.println(\"FPS:\" + drawCount);\r\n                drawCount = 0;\r\n                timer = 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    public void update() {\r\n        player.update();\r\n    }\r\n\r\n    public void paintComponent(Graphics g) {\r\n        super.paintComponent(g);\r\n        Graphics2D g2 = (Graphics2D)g;\r\n        tileM.draw(g2, tileSize, mazeStartX, mazeStartY);\r\n        player.draw(g2);\r\n        g2.dispose();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/GamePanel.java b/src/game/GamePanel.java
+--- a/src/game/GamePanel.java	(revision 03eed9727ad89b2b9975b77347d5de9bb86714bb)
++++ b/src/game/GamePanel.java	(date 1729608903804)
+@@ -48,7 +48,7 @@
+     public AssetSetter aSetter = new AssetSetter(this);
+     Maze maze = new Maze(mazeWidth, mazeHeight);
+     TileManager tileM = new TileManager(this, maze);
+-    public CollisionChecker cChecker = new CollisionChecker(this, maze);
++    //public CollisionChecker cChecker = new CollisionChecker(this, maze);
+     public Player player = new Player(this, keyH);
+ 
+ 
+@@ -58,7 +58,7 @@
+     public GamePanel() {
+ 
+         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+-        this.setBackground(Color.green);
++        this.setBackground(Color.red);
+         this.setDoubleBuffered(true);
+         this.addKeyListener(keyH);
+         this.setFocusable(true);

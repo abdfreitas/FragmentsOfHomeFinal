@@ -1,0 +1,62 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"progress\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/game/AssetSetter.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/GamePanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/GamePanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/Main.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/Main.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/items/Item_Key.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/items/Item_Key.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/items/item.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/items/Item.java\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" name=\"Changes by 20241481\" comment=\"Changes by 20241481\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/maze/Maze.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/maze/Maze.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;abdfreitas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/abdfreitas/FragmentsOfHomeFinal.git&quot;,\r\n    &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nktEf2k7ZhYI4Sm9zaanW6PpEA\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\tiles\" />\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\player\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"\" />\r\n      <created>1729528794645</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1729528794645</updated>\r\n      <workItem from=\"1729528795694\" duration=\"14371000\" />\r\n      <workItem from=\"1729600359222\" duration=\"1678000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"added packages, classes, methods and res\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729530087914</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729530087914</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542685509</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542685509</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542958788</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542958788</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"added packages, classes, methods and res\" />\r\n    <MESSAGE value=\"Changes by 20241481\" />\r\n    <MESSAGE value=\"progress\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"progress\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 1de4114581ae267c6c0b858c8ed926dd9e3b8cbd)
++++ b/.idea/workspace.xml	(date 1729604731346)
+@@ -4,14 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
+-      <change afterPath="$PROJECT_DIR$/src/game/AssetSetter.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/game/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/Main.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/Item_Key.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/items/item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/Item.java" afterDir="false" />
+-    </list>
++    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="item key" />
+     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
+       <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
+@@ -92,7 +85,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1729528794645</updated>
+       <workItem from="1729528795694" duration="14371000" />
+-      <workItem from="1729600359222" duration="1678000" />
++      <workItem from="1729600359222" duration="2693000" />
+     </task>
+     <task id="LOCAL-00001" summary="added packages, classes, methods and res">
+       <option name="closed" value="true" />
+@@ -118,7 +111,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1729542958788</updated>
+     </task>
+-    <option name="localTasksCounter" value="4" />
++    <task id="LOCAL-00004" summary="item key">
++      <option name="closed" value="true" />
++      <created>1729603170040</created>
++      <option name="number" value="00004" />
++      <option name="presentableId" value="LOCAL-00004" />
++      <option name="project" value="LOCAL" />
++      <updated>1729603170040</updated>
++    </task>
++    <option name="localTasksCounter" value="5" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -128,6 +129,7 @@
+     <MESSAGE value="added packages, classes, methods and res" />
+     <MESSAGE value="Changes by 20241481" />
+     <MESSAGE value="progress" />
+-    <option name="LAST_COMMIT_MESSAGE" value="progress" />
++    <MESSAGE value="item key" />
++    <option name="LAST_COMMIT_MESSAGE" value="item key" />
+   </component>
+ </project>
+\ No newline at end of file

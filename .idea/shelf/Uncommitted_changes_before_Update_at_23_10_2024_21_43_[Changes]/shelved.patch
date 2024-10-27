@@ -1,0 +1,339 @@
+Index: src/player/Player.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package player;\r\n// IMPORT METHODS\r\nimport game.GamePanel;\r\nimport game.KeyHandler;\r\nimport maze.Maze;\r\n\r\nimport javax.imageio.ImageIO;\r\nimport java.awt.*;\r\nimport java.awt.image.BufferedImage;\r\nimport java.io.IOException;\r\n\r\n\r\npublic class Player extends Entity {\r\n    GamePanel gp;\r\n    KeyHandler keyH;\r\n\r\n    boolean isIdle = true;\r\n\r\n    // Arrays to hold animation frames\r\n    BufferedImage[] idleFrames = new BufferedImage[8];\r\n    BufferedImage[] upFrames = new BufferedImage[12];\r\n    BufferedImage[] downFrames = new BufferedImage[12];\r\n    BufferedImage[] leftFrames = new BufferedImage[12];\r\n    BufferedImage[] rightFrames = new BufferedImage[12];\r\n\r\n    public Player (GamePanel gp, KeyHandler keyH) {\r\n        this.gp = gp;\r\n        this.keyH = keyH;\r\n\r\n        // SOLID AREA FOR COLLISION CHECKER\r\n        solidArea = new Rectangle(10,27,28,21);\r\n        solidArea.x = 10;\r\n        solidArea.y = 27;\r\n        solidArea.width = 28;\r\n        solidArea.height = 21;\r\n\r\n        setDefaultValues();\r\n        getPlayerImage();\r\n    }\r\n\r\n    // PLAYER SPAWN POINT AND SPEED\r\n    public void setDefaultValues() {\r\n        spawnX = 1;\r\n        spawnY = 45;\r\n\r\n        playerX = spawnX;\r\n        playerY = spawnY;\r\n\r\n        speed = 2;\r\n        direction = \"down\";\r\n    }\r\n\r\n    // SPRITE IMAGES\r\n    public void getPlayerImage() {\r\n\r\n            try {\r\n                for (int i = 0; i < 8; i++) {\r\n                    idleFrames[i] = ImageIO.read(getClass().getResourceAsStream(\"/player/idle-\" + (i + 1) + \".png.png\"));\r\n                }\r\n\r\n                for (int i = 0; i < 12; i++) {\r\n                        rightFrames[i] = ImageIO.read(getClass().getResourceAsStream(\"/player/right-\" + (i + 1) + \".png.png\"));\r\n                        leftFrames[i] = ImageIO.read(getClass().getResourceAsStream(\"/player/left-\" + (i + 1) + \".png.png\"));\r\n                        upFrames[i] = ImageIO.read(getClass().getResourceAsStream(\"/player/up-\" + (i + 1) + \".png.png\"));\r\n                        downFrames[i] = ImageIO.read(getClass().getResourceAsStream(\"/player/down-\" + (i + 1) + \".png.png\"));\r\n                }\r\n\r\n            } catch (IOException e) {\r\n                e.printStackTrace();\r\n            }\r\n    }\r\n\r\n    // PLAYER DIRECTION/MOVEMENT WITH KEY HANDLER\r\n    public void update() {\r\n\r\n        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {\r\n            isIdle = false;\r\n            if (keyH.upPressed) {\r\n                direction = \"up\";\r\n            } else if (keyH.downPressed) {\r\n                direction = \"down\";\r\n            } else if (keyH.leftPressed) {\r\n                direction = \"left\";\r\n            } else if (keyH.rightPressed) {\r\n                direction = \"right\";\r\n            }\r\n\r\n            // CHECK FOR TILE COLLISION\r\n            collisionOn = false;\r\n\r\n            if (playerX >= gp.mazeStartX  && playerY >= gp.mazeStartY) {\r\n                // Run collision detection only within maze bounds\r\n                gp.cChecker.checkTile(this);\r\n            }\r\n\r\n            System.out.println(\"Player position: (\" + playerX + \", \" + playerY + \")\");\r\n            System.out.println(\"Collision status: \" + collisionOn);\r\n            // IF COLLISION IS FALSE, THE PLAYER CAN MOVE\r\n            if (!collisionOn) {\r\n                switch (direction) {\r\n                    case \"up\":\r\n                        playerY -= speed;\r\n                        break;\r\n                    case \"down\":\r\n                        playerY += speed;\r\n                        break;\r\n                    case \"left\":\r\n                        playerX -= speed;\r\n                        break;\r\n                    case \"right\":\r\n                        playerX += speed;\r\n                        break;\r\n                }\r\n            }\r\n\r\n            // ANIMATE PLAYER MOVEMENT\r\n            spriteCounter++;\r\n            if (spriteCounter > 8) {\r\n                spriteNum = (spriteNum % 12) + 1;\r\n                spriteCounter = 0;\r\n            }\r\n        } else {\r\n            // NO MOVEMENT. THE PLAYER IS IDLE\r\n            isIdle = true;\r\n            spriteCounter++;\r\n            if (spriteCounter > 8) {\r\n                spriteNum = (spriteNum % 8) + 1;\r\n                spriteCounter = 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    public void draw(Graphics2D g2) {\r\n        BufferedImage image = null;\r\n\r\n        try {\r\n            if (isIdle) {\r\n                // Show idle animation\r\n                image = idleFrames[spriteNum - 1];\r\n            } else {\r\n                // Show movement animation based on direction\r\n                switch (direction) {\r\n                    case \"up\":\r\n                        image = upFrames[spriteNum - 1];\r\n                        break;\r\n                    case \"down\":\r\n                        image = downFrames[spriteNum - 1];\r\n                        break;\r\n                    case \"left\":\r\n                        image = leftFrames[spriteNum - 1];\r\n                        break;\r\n                    case \"right\":\r\n                        image = rightFrames[spriteNum - 1];\r\n                        break;\r\n                }\r\n            }\r\n        }\r\n            catch(ArrayIndexOutOfBoundsException e) {\r\n                e.getMessage();\r\n                spriteNum = 1;\r\n            }\r\n\r\n        g2.drawImage(image, playerX, playerY, gp.playerSize, gp.playerSize, null);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/player/Player.java b/src/player/Player.java
+--- a/src/player/Player.java	(revision 4845f1bf93472075e0f1757c9256ae829d3e6fef)
++++ b/src/player/Player.java	(date 1729712503550)
+@@ -1,165 +1,0 @@
+-package player;
+-// IMPORT METHODS
+-import game.GamePanel;
+-import game.KeyHandler;
+-import maze.Maze;
+-
+-import javax.imageio.ImageIO;
+-import java.awt.*;
+-import java.awt.image.BufferedImage;
+-import java.io.IOException;
+-
+-
+-public class Player extends Entity {
+-    GamePanel gp;
+-    KeyHandler keyH;
+-
+-    boolean isIdle = true;
+-
+-    // Arrays to hold animation frames
+-    BufferedImage[] idleFrames = new BufferedImage[8];
+-    BufferedImage[] upFrames = new BufferedImage[12];
+-    BufferedImage[] downFrames = new BufferedImage[12];
+-    BufferedImage[] leftFrames = new BufferedImage[12];
+-    BufferedImage[] rightFrames = new BufferedImage[12];
+-
+-    public Player (GamePanel gp, KeyHandler keyH) {
+-        this.gp = gp;
+-        this.keyH = keyH;
+-
+-        // SOLID AREA FOR COLLISION CHECKER
+-        solidArea = new Rectangle(10,27,28,21);
+-        solidArea.x = 10;
+-        solidArea.y = 27;
+-        solidArea.width = 28;
+-        solidArea.height = 21;
+-
+-        setDefaultValues();
+-        getPlayerImage();
+-    }
+-
+-    // PLAYER SPAWN POINT AND SPEED
+-    public void setDefaultValues() {
+-        spawnX = 1;
+-        spawnY = 45;
+-
+-        playerX = spawnX;
+-        playerY = spawnY;
+-
+-        speed = 2;
+-        direction = "down";
+-    }
+-
+-    // SPRITE IMAGES
+-    public void getPlayerImage() {
+-
+-            try {
+-                for (int i = 0; i < 8; i++) {
+-                    idleFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/idle-" + (i + 1) + ".png.png"));
+-                }
+-
+-                for (int i = 0; i < 12; i++) {
+-                        rightFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/right-" + (i + 1) + ".png.png"));
+-                        leftFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/left-" + (i + 1) + ".png.png"));
+-                        upFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/up-" + (i + 1) + ".png.png"));
+-                        downFrames[i] = ImageIO.read(getClass().getResourceAsStream("/player/down-" + (i + 1) + ".png.png"));
+-                }
+-
+-            } catch (IOException e) {
+-                e.printStackTrace();
+-            }
+-    }
+-
+-    // PLAYER DIRECTION/MOVEMENT WITH KEY HANDLER
+-    public void update() {
+-
+-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+-            isIdle = false;
+-            if (keyH.upPressed) {
+-                direction = "up";
+-            } else if (keyH.downPressed) {
+-                direction = "down";
+-            } else if (keyH.leftPressed) {
+-                direction = "left";
+-            } else if (keyH.rightPressed) {
+-                direction = "right";
+-            }
+-
+-            // CHECK FOR TILE COLLISION
+-            collisionOn = false;
+-
+-            if (playerX >= gp.mazeStartX  && playerY >= gp.mazeStartY) {
+-                // Run collision detection only within maze bounds
+-                gp.cChecker.checkTile(this);
+-            }
+-
+-            System.out.println("Player position: (" + playerX + ", " + playerY + ")");
+-            System.out.println("Collision status: " + collisionOn);
+-            // IF COLLISION IS FALSE, THE PLAYER CAN MOVE
+-            if (!collisionOn) {
+-                switch (direction) {
+-                    case "up":
+-                        playerY -= speed;
+-                        break;
+-                    case "down":
+-                        playerY += speed;
+-                        break;
+-                    case "left":
+-                        playerX -= speed;
+-                        break;
+-                    case "right":
+-                        playerX += speed;
+-                        break;
+-                }
+-            }
+-
+-            // ANIMATE PLAYER MOVEMENT
+-            spriteCounter++;
+-            if (spriteCounter > 8) {
+-                spriteNum = (spriteNum % 12) + 1;
+-                spriteCounter = 0;
+-            }
+-        } else {
+-            // NO MOVEMENT. THE PLAYER IS IDLE
+-            isIdle = true;
+-            spriteCounter++;
+-            if (spriteCounter > 8) {
+-                spriteNum = (spriteNum % 8) + 1;
+-                spriteCounter = 0;
+-            }
+-        }
+-    }
+-
+-    public void draw(Graphics2D g2) {
+-        BufferedImage image = null;
+-
+-        try {
+-            if (isIdle) {
+-                // Show idle animation
+-                image = idleFrames[spriteNum - 1];
+-            } else {
+-                // Show movement animation based on direction
+-                switch (direction) {
+-                    case "up":
+-                        image = upFrames[spriteNum - 1];
+-                        break;
+-                    case "down":
+-                        image = downFrames[spriteNum - 1];
+-                        break;
+-                    case "left":
+-                        image = leftFrames[spriteNum - 1];
+-                        break;
+-                    case "right":
+-                        image = rightFrames[spriteNum - 1];
+-                        break;
+-                }
+-            }
+-        }
+-            catch(ArrayIndexOutOfBoundsException e) {
+-                e.getMessage();
+-                spriteNum = 1;
+-            }
+-
+-        g2.drawImage(image, playerX, playerY, gp.playerSize, gp.playerSize, null);
+-    }
+-}
+\ No newline at end of file
+Index: src/game/GamePanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item;\r\nimport maze.Maze;\r\nimport player.Player;\r\nimport tile.TileManager;\r\n\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class GamePanel extends JPanel implements Runnable {\r\n\r\n    // SCREEN SETTINGS\r\n    // TILE SIZE\r\n    final int originalTileSize = 16; // 16x16 tile (default size of player, items, map tiles)\r\n    final int scale = 3;\r\n    // PLAYER SIZE\r\n    final int originalPlayerSize = 16;\r\n    final int playerScale = 3;\r\n\r\n    // SCALING FOR TILES AND PLAYER\r\n    public final int tileSize = originalTileSize * scale; // 48x48 tile\r\n    public final int playerSize = originalPlayerSize * playerScale; // 48x48 player\r\n    // SCREEN DIMENSIONS\r\n    public final int maxScreenCol = 28;\r\n    public final int maxScreenRow = 18;\r\n    final int screenWidth = tileSize * maxScreenCol; // 1344 pixels\r\n    final int screenHeight = tileSize * maxScreenRow; // 864 pixels\r\n\r\n    // MAZE DIMENSIONS\r\n    private final int mazeWidth = 19;\r\n    private final int mazeHeight = 13;\r\n    private int mazeStartCol = 2;\r\n    private int mazeStartRow = 2;\r\n\r\n    public final int mazeStartX = mazeStartCol * tileSize;\r\n    public final int mazeStartY = mazeStartRow * tileSize;\r\n\r\n    // FPS\r\n    int FPS = 60;\r\n\r\n    KeyHandler keyH = new KeyHandler();\r\n    Thread gameThread; // Keep playing the game until stopped\r\n\r\n    //ITEMS\r\n    public Item itm[] = new Item[10];\r\n    public AssetSetter aSetter = new AssetSetter(this);\r\n    Maze maze = new Maze(mazeWidth, mazeHeight);\r\n    TileManager tileM = new TileManager(this, maze);\r\n    public Player player = new Player(this, keyH);\r\n    public CollisionChecker cChecker = new CollisionChecker(this, maze);\r\n\r\n\r\n\r\n\r\n\r\n    public GamePanel() {\r\n\r\n        this.setPreferredSize(new Dimension(screenWidth, screenHeight));\r\n        this.setBackground(Color.green);\r\n        this.setDoubleBuffered(true);\r\n        this.addKeyListener(keyH);\r\n        this.setFocusable(true);\r\n    }\r\n\r\n    public void setupGame() {\r\n        aSetter.setObject();\r\n    }\r\n\r\n    public void startGameThread() {\r\n        gameThread = new Thread(this);\r\n        gameThread.start();\r\n    }\r\n\r\n    // DELTA GAME LOOP\r\n    @Override\r\n    public void run() {\r\n\r\n        double drawInterval = 1000000000 / FPS;\r\n        double delta = 0;\r\n        double lastTime = System.nanoTime();\r\n        long currentTime;\r\n        long timer = 0;\r\n        int drawCount = 0;\r\n\r\n        while (gameThread != null) {\r\n\r\n            currentTime = System.nanoTime();\r\n\r\n            delta += (currentTime - lastTime) / drawInterval;\r\n            timer += (long) (currentTime - lastTime);\r\n            lastTime = currentTime;\r\n\r\n            if (delta >= 1) {\r\n                update();\r\n                repaint();\r\n                delta--;\r\n                drawCount++;\r\n            }\r\n\r\n            if (timer >= 1000000000) {\r\n                //System.out.println(\"FPS:\" + drawCount);\r\n                drawCount = 0;\r\n                timer = 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    public void update() {\r\n        player.update();\r\n    }\r\n\r\n    public void paintComponent(Graphics g) {\r\n        super.paintComponent(g);\r\n        Graphics2D g2 = (Graphics2D)g;\r\n        tileM.draw(g2, tileSize, mazeStartX, mazeStartY);\r\n        player.draw(g2);\r\n        g2.dispose();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/GamePanel.java b/src/game/GamePanel.java
+--- a/src/game/GamePanel.java	(revision 4845f1bf93472075e0f1757c9256ae829d3e6fef)
++++ b/src/game/GamePanel.java	(date 1729712132690)
+@@ -30,12 +30,12 @@
+ 
+     // MAZE DIMENSIONS
+     private final int mazeWidth = 19;
+-    private final int mazeHeight = 13;
++    private final int mazeHeight = 14;
+     private int mazeStartCol = 2;
+     private int mazeStartRow = 2;
+ 
+-    public final int mazeStartX = mazeStartCol * tileSize;
+-    public final int mazeStartY = mazeStartRow * tileSize;
++    private final int mazeStartX = mazeStartCol * tileSize;
++    private final int mazeStartY = mazeStartRow * tileSize;
+ 
+     // FPS
+     int FPS = 60;
+@@ -48,8 +48,8 @@
+     public AssetSetter aSetter = new AssetSetter(this);
+     Maze maze = new Maze(mazeWidth, mazeHeight);
+     TileManager tileM = new TileManager(this, maze);
+-    public Player player = new Player(this, keyH);
+     public CollisionChecker cChecker = new CollisionChecker(this, maze);
++    public Player player = new Player(this, keyH);
+ 
+ 
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"progress\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/CollisionChecker.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/game/GamePanel.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/game/GamePanel.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/maze/Maze.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/maze/Maze.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Player.java\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" name=\"Changes by 20241481\" comment=\"Changes by 20241481\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;abdfreitas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/abdfreitas/FragmentsOfHomeFinal.git&quot;,\r\n    &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nktEf2k7ZhYI4Sm9zaanW6PpEA\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\tiles\" />\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\player\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"\" />\r\n      <created>1729528794645</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1729528794645</updated>\r\n      <workItem from=\"1729528795694\" duration=\"14371000\" />\r\n      <workItem from=\"1729600359222\" duration=\"1678000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"added packages, classes, methods and res\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729530087914</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729530087914</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542685509</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542685509</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542958788</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542958788</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"added packages, classes, methods and res\" />\r\n    <MESSAGE value=\"Changes by 20241481\" />\r\n    <MESSAGE value=\"progress\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"progress\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4845f1bf93472075e0f1757c9256ae829d3e6fef)
++++ b/.idea/workspace.xml	(date 1729712557181)
+@@ -4,13 +4,16 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="progress">
+-      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
++    <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="item key">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/game/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/AssetSetter.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/maze/Maze.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/maze/Maze.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/ItemKey.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
+     </list>
+-    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
++    <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481">
++      <change beforePath="$PROJECT_DIR$/src/game/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/CollisionChecker.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -25,6 +28,7 @@
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="UPDATE_TYPE" value="REBASE" />
+   </component>
+   <component name="GitHubPullRequestSearchHistory">{
+   &quot;lastFilter&quot;: {
+@@ -88,6 +92,8 @@
+       <updated>1729528794645</updated>
+       <workItem from="1729528795694" duration="14371000" />
+       <workItem from="1729600359222" duration="1678000" />
++      <workItem from="1729710845774" duration="1320000" />
++      <workItem from="1729712248769" duration="306000" />
+     </task>
+     <task id="LOCAL-00001" summary="added packages, classes, methods and res">
+       <option name="closed" value="true" />
+@@ -118,6 +124,17 @@
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="added packages, classes, methods and res" />
+Index: src/items/Item_Key.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/items/Item_Key.java b/src/items/ItemKey.java
+rename from src/items/Item_Key.java
+rename to src/items/ItemKey.java
+--- a/src/items/Item_Key.java	(revision 4845f1bf93472075e0f1757c9256ae829d3e6fef)
++++ b/src/items/ItemKey.java	(date 1729712128391)
+@@ -2,9 +2,9 @@
+ 
+ import javax.imageio.ImageIO;
+ 
+-public class Item_Key extends Item {
++public class ItemKey extends Item {
+ 
+-    public Item_Key() {
++    public ItemKey() {
+         name = "Key";
+         try {
+             image = ImageIO.read(getClass().getResourceAsStream("/items/Key.png"));
+@@ -14,4 +14,5 @@
+         }
+     }
+ 
++
+ }
+Index: src/game/AssetSetter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item_Key;\r\n\r\npublic class AssetSetter {\r\n\r\n    GamePanel gp;\r\n\r\n    public AssetSetter(GamePanel gp) {\r\n        this.gp = gp;\r\n    }\r\n\r\n    // MAKE THESE VALUES RANDOM\r\n    public void setObject() {\r\n        gp.itm[0] = new Item_Key();\r\n        gp.itm[0].worldX = 23 * gp.tileSize;\r\n        gp.itm[0].worldY = 7 * gp.tileSize;\r\n\r\n        gp.itm[1] = new Item_Key();\r\n        gp.itm[1].worldX = 23 * gp.tileSize;\r\n        gp.itm[1].worldY = 7 * gp.tileSize;\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/AssetSetter.java b/src/game/AssetSetter.java
+--- a/src/game/AssetSetter.java	(revision 4845f1bf93472075e0f1757c9256ae829d3e6fef)
++++ b/src/game/AssetSetter.java	(date 1729712130676)
+@@ -1,6 +1,6 @@
+ package game;
+ 
+-import items.Item_Key;
++import items.ItemKey;
+ 
+ public class AssetSetter {
+ 
+@@ -12,11 +12,11 @@
+ 
+     // MAKE THESE VALUES RANDOM
+     public void setObject() {
+-        gp.itm[0] = new Item_Key();
++        gp.itm[0] = new ItemKey();
+         gp.itm[0].worldX = 23 * gp.tileSize;
+         gp.itm[0].worldY = 7 * gp.tileSize;
+ 
+-        gp.itm[1] = new Item_Key();
++        gp.itm[1] = new ItemKey();
+         gp.itm[1].worldX = 23 * gp.tileSize;
+         gp.itm[1].worldY = 7 * gp.tileSize;
+     }

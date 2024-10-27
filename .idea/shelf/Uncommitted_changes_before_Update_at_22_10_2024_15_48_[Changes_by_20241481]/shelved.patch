@@ -1,0 +1,97 @@
+Index: src/game/CollisionChecker.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\npublic class CollisionChecker {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/CollisionChecker.java b/src/game/CollisionChecker.java
+--- a/src/game/CollisionChecker.java	(revision 1de4114581ae267c6c0b858c8ed926dd9e3b8cbd)
++++ b/src/game/CollisionChecker.java	(date 1729543864292)
+@@ -1,4 +1,68 @@
+ package game;
+ 
++import player.Entity;
++
+ public class CollisionChecker {
++
++    GamePanel gp;
++
++    public CollisionChecker(GamePanel gp) {
++        this.gp = gp;
++    }
++
++    public void checkTile(Entity entity) {
++
++        // Calculate entity's edges using spawnX and spawnY
++        int entityLeftWorldX = entity.spawnX + entity.solidArea.x;
++        int entityRightWorldX = entity.spawnX + entity.solidArea.x + entity.solidArea.width;
++        int entityTopWorldY = entity.spawnY + entity.solidArea.y;
++        int entityBottomWorldY = entity.spawnY + entity.solidArea.y + entity.solidArea.height;
++
++        // Convert to tile coordinates
++        int entityLeftCol = entityLeftWorldX / gp.tileSize;
++        int entityRightCol = entityRightWorldX / gp.tileSize;
++        int entityTopRow = entityTopWorldY / gp.tileSize;
++        int entityBottomRow = entityBottomWorldY / gp.tileSize;
++
++        // Collision tile numbers
++        int tileNum1, tileNum2;
++
++        switch (entity.direction) {
++            case "up":
++                entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
++                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
++                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
++                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
++                    entity.collisionOn = true; // Collision detected
++                }
++                break;
++
++            case "down":
++                entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
++                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
++                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
++                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
++                    entity.collisionOn = true; // Collision detected
++                }
++                break;
++
++            case "left":
++                entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
++                tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
++                tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
++                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
++                    entity.collisionOn = true; // Collision detected
++                }
++                break;
++
++            case "right":
++                entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;
++                tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
++                tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
++                if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
++                    entity.collisionOn = true; // Collision detected
++                }
++                break;
++        }
++    }
+ }
+Index: src/maze/Maze.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package maze;\r\n\r\npublic class Maze {\r\n\r\n    private int width, height;\r\n    private int[][] maze;\r\n    public static final int WALL = 1;\r\n    public static final int PATH = 0;\r\n\r\n    public Maze(int width, int height) {\r\n        this.width = width;\r\n        this.height = height;\r\n        this.maze = new int[width][height];\r\n\r\n        MazeGenerator generator = new MazeGenerator(this);\r\n        generator.mazeGenerator(0,0);\r\n    }\r\n\r\n    private void initializeMaze() {\r\n        for (int x = 0; x < width; x++) {\r\n            for (int y = 0; y < height; y++) {\r\n                maze[x][y] = WALL;\r\n            }\r\n        }\r\n    }\r\n\r\n    public int[][] getMaze() {\r\n        return maze;\r\n    }\r\n\r\n    public int getWidth() {\r\n        return width;\r\n    }\r\n\r\n    public int getHeight() {\r\n        return height;\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/maze/Maze.java b/src/maze/Maze.java
+--- a/src/maze/Maze.java	(revision 1de4114581ae267c6c0b858c8ed926dd9e3b8cbd)
++++ b/src/maze/Maze.java	(date 1729543342550)
+@@ -12,6 +12,7 @@
+         this.height = height;
+         this.maze = new int[width][height];
+ 
++        initializeMaze();
+         MazeGenerator generator = new MazeGenerator(this);
+         generator.mazeGenerator(0,0);
+     }

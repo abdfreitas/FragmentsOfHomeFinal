@@ -1,0 +1,118 @@
+Index: src/game/GamePanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item;\r\nimport maze.Maze;\r\nimport player.Player;\r\nimport tile.TileManager;\r\n\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\n\r\npublic class GamePanel extends JPanel implements Runnable {\r\n\r\n    // SCREEN SETTINGS\r\n    // TILE SIZE\r\n    final int originalTileSize = 16; // 16x16 tile (default size of player, items, map tiles)\r\n    final int scale = 3;\r\n    // PLAYER SIZE\r\n    final int originalPlayerSize = 16;\r\n    final int playerScale = 3;\r\n\r\n    // SCALING FOR TILES AND PLAYER\r\n    public final int tileSize = originalTileSize * scale; // 48x48 tile\r\n    public final int playerSize = originalPlayerSize * playerScale; // 48x48 player\r\n    // SCREEN DIMENSIONS\r\n    public final int maxScreenCol = 28;\r\n    public final int maxScreenRow = 18;\r\n    final int screenWidth = tileSize * maxScreenCol; // 1344 pixels\r\n    final int screenHeight = tileSize * maxScreenRow; // 864 pixels\r\n\r\n    // MAZE DIMENSIONS\r\n    private final int mazeWidth = 19;\r\n    private final int mazeHeight = 13;\r\n    private int mazeStartCol = 2;\r\n    private int mazeStartRow = 2;\r\n\r\n    public final int mazeStartX = mazeStartCol * tileSize;\r\n    public final int mazeStartY = mazeStartRow * tileSize;\r\n\r\n    // FPS\r\n    int FPS = 60;\r\n\r\n    KeyHandler keyH = new KeyHandler();\r\n    Thread gameThread; // Keep playing the game until stopped\r\n\r\n    //ITEMS\r\n    public Item itm[] = new Item[10];\r\n    public AssetSetter aSetter = new AssetSetter(this);\r\n    Maze maze = new Maze(mazeWidth, mazeHeight);\r\n    TileManager tileM = new TileManager(this, maze);\r\n    public Player player = new Player(this, keyH);\r\n    public CollisionChecker cChecker = new CollisionChecker(this, maze);\r\n\r\n\r\n\r\n\r\n\r\n    public GamePanel() {\r\n\r\n        this.setPreferredSize(new Dimension(screenWidth, screenHeight));\r\n        this.setBackground(Color.green);\r\n        this.setDoubleBuffered(true);\r\n        this.addKeyListener(keyH);\r\n        this.setFocusable(true);\r\n    }\r\n\r\n    public void setupGame() {\r\n        aSetter.setObject();\r\n    }\r\n\r\n    public void startGameThread() {\r\n        gameThread = new Thread(this);\r\n        gameThread.start();\r\n    }\r\n\r\n    // DELTA GAME LOOP\r\n    @Override\r\n    public void run() {\r\n\r\n        double drawInterval = 1000000000 / FPS;\r\n        double delta = 0;\r\n        double lastTime = System.nanoTime();\r\n        long currentTime;\r\n        long timer = 0;\r\n        int drawCount = 0;\r\n\r\n        while (gameThread != null) {\r\n\r\n            currentTime = System.nanoTime();\r\n\r\n            delta += (currentTime - lastTime) / drawInterval;\r\n            timer += (long) (currentTime - lastTime);\r\n            lastTime = currentTime;\r\n\r\n            if (delta >= 1) {\r\n                update();\r\n                repaint();\r\n                delta--;\r\n                drawCount++;\r\n            }\r\n\r\n            if (timer >= 1000000000) {\r\n                //System.out.println(\"FPS:\" + drawCount);\r\n                drawCount = 0;\r\n                timer = 0;\r\n            }\r\n        }\r\n    }\r\n\r\n    public void update() {\r\n        player.update();\r\n    }\r\n\r\n    public void paintComponent(Graphics g) {\r\n        super.paintComponent(g);\r\n        Graphics2D g2 = (Graphics2D)g;\r\n        tileM.draw(g2, tileSize, mazeStartX, mazeStartY);\r\n        player.draw(g2);\r\n        g2.dispose();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/GamePanel.java b/src/game/GamePanel.java
+--- a/src/game/GamePanel.java	(revision 2f42625bf8de3197d03692858463c1a4b45cd2eb)
++++ b/src/game/GamePanel.java	(date 1729712812350)
+@@ -30,12 +30,12 @@
+ 
+     // MAZE DIMENSIONS
+     private final int mazeWidth = 19;
+-    private final int mazeHeight = 13;
++    private final int mazeHeight = 14;
+     private int mazeStartCol = 2;
+     private int mazeStartRow = 2;
+ 
+-    public final int mazeStartX = mazeStartCol * tileSize;
+-    public final int mazeStartY = mazeStartRow * tileSize;
++    private final int mazeStartX = mazeStartCol * tileSize;
++    private final int mazeStartY = mazeStartRow * tileSize;
+ 
+     // FPS
+     int FPS = 60;
+@@ -48,8 +48,8 @@
+     public AssetSetter aSetter = new AssetSetter(this);
+     Maze maze = new Maze(mazeWidth, mazeHeight);
+     TileManager tileM = new TileManager(this, maze);
+-    public Player player = new Player(this, keyH);
+     public CollisionChecker cChecker = new CollisionChecker(this, maze);
++    public Player player = new Player(this, keyH);
+ 
+ 
+ 
+Index: src/items/Item_Key.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/items/Item_Key.java b/src/items/ItemKey.java
+rename from src/items/Item_Key.java
+rename to src/items/ItemKey.java
+--- a/src/items/Item_Key.java	(revision 2f42625bf8de3197d03692858463c1a4b45cd2eb)
++++ b/src/items/ItemKey.java	(date 1729712812355)
+@@ -2,9 +2,9 @@
+ 
+ import javax.imageio.ImageIO;
+ 
+-public class Item_Key extends Item {
++public class ItemKey extends Item {
+ 
+-    public Item_Key() {
++    public ItemKey() {
+         name = "Key";
+         try {
+             image = ImageIO.read(getClass().getResourceAsStream("/items/Key.png"));
+@@ -14,4 +14,5 @@
+         }
+     }
+ 
++
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"trial\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/player/Player.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/player/Player.java\" afterDir=\"false\" />\r\n    </list>\r\n    <list id=\"a2e936bd-8990-48a0-a9b7-9a739157ce62\" name=\"Changes by 20241481\" comment=\"Changes by 20241481\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;abdfreitas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/abdfreitas/FragmentsOfHomeFinal.git&quot;,\r\n    &quot;accountId&quot;: &quot;ec185a24-2279-4d61-86d8-f6a0db2bbc6a&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nktEf2k7ZhYI4Sm9zaanW6PpEA\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;master&quot;,\r\n    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/res/tiles&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/20244494/IdeaProjects/FragmentsOfHomeNew/src/Main.java&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\tiles\" />\r\n      <recent name=\"C:\\Users\\20244494\\IdeaProjects\\FragmentsOfHomeNew\\res\\player\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9601e060-58b8-4f47-85bc-8d0505907e09\" name=\"Changes\" comment=\"\" />\r\n      <created>1729528794645</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1729528794645</updated>\r\n      <workItem from=\"1729528795694\" duration=\"14371000\" />\r\n      <workItem from=\"1729600359222\" duration=\"1678000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"added packages, classes, methods and res\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729530087914</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729530087914</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542685509</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542685509</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729542958788</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729542958788</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"progress\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729604831913</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729604831913</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729711990856</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729711990856</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"trial\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1729712604573</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1729712604573</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"added packages, classes, methods and res\" />\r\n    <MESSAGE value=\"Changes by 20241481\" />\r\n    <MESSAGE value=\"progress\" />\r\n    <MESSAGE value=\"trial\" />\r\n    <MESSAGE value=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fixed image names and sprite flicker, maze generates borders and an entrance and exit now\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2f42625bf8de3197d03692858463c1a4b45cd2eb)
++++ b/.idea/workspace.xml	(date 1729713003203)
+@@ -5,8 +5,9 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="9601e060-58b8-4f47-85bc-8d0505907e09" name="Changes" comment="trial">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/player/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/player/Player.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/game/AssetSetter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/AssetSetter.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GamePanel.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/items/Item_Key.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/items/ItemKey.java" afterDir="false" />
+     </list>
+     <list id="a2e936bd-8990-48a0-a9b7-9a739157ce62" name="Changes by 20241481" comment="Changes by 20241481" />
+     <option name="SHOW_DIALOG" value="false" />
+Index: src/game/AssetSetter.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package game;\r\n\r\nimport items.Item_Key;\r\n\r\npublic class AssetSetter {\r\n\r\n    GamePanel gp;\r\n\r\n    public AssetSetter(GamePanel gp) {\r\n        this.gp = gp;\r\n    }\r\n\r\n    // MAKE THESE VALUES RANDOM\r\n    public void setObject() {\r\n        gp.itm[0] = new Item_Key();\r\n        gp.itm[0].worldX = 23 * gp.tileSize;\r\n        gp.itm[0].worldY = 7 * gp.tileSize;\r\n\r\n        gp.itm[1] = new Item_Key();\r\n        gp.itm[1].worldX = 23 * gp.tileSize;\r\n        gp.itm[1].worldY = 7 * gp.tileSize;\r\n    }\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/AssetSetter.java b/src/game/AssetSetter.java
+--- a/src/game/AssetSetter.java	(revision 2f42625bf8de3197d03692858463c1a4b45cd2eb)
++++ b/src/game/AssetSetter.java	(date 1729712816960)
+@@ -1,6 +1,6 @@
+ package game;
+ 
+-import items.Item_Key;
++import items.ItemKey;
+ 
+ public class AssetSetter {
+ 
+@@ -12,11 +12,11 @@
+ 
+     // MAKE THESE VALUES RANDOM
+     public void setObject() {
+-        gp.itm[0] = new Item_Key();
++        gp.itm[0] = new ItemKey();
+         gp.itm[0].worldX = 23 * gp.tileSize;
+         gp.itm[0].worldY = 7 * gp.tileSize;
+ 
+-        gp.itm[1] = new Item_Key();
++        gp.itm[1] = new ItemKey();
+         gp.itm[1].worldX = 23 * gp.tileSize;
+         gp.itm[1].worldY = 7 * gp.tileSize;
+     }
