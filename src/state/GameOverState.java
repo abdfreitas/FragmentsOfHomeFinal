@@ -26,7 +26,7 @@ public class GameOverState {
     }
 
 //    public boolean checkGameOverCondition(Entity entity) {
-//        if (timer.getRemainingTime() <= 0) {
+//        if (timer.getRemainingTime() == 0) {
 //            gameOver = true;
 //        }
 //        return gameOver;
