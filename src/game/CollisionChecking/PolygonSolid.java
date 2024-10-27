@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.Rectangle;
 
+//
+// The PolygonSolid class implements the ISolid interface and handles collision detection
+// for entities using a polygonal area. It checks for collisions based on the movement of the entity
+// and the shape defined by the polygon's vertices.
+//
 public class PolygonSolid implements ISolid {
 
     Maze maze;
@@ -16,11 +21,17 @@ public class PolygonSolid implements ISolid {
     double[] polygonX = {0.5, 1, 0.5, 0};
     double[] polygonY = {0, 0.5, 1, 0.5};
 
+    /*
+     * Constructor initializes the PolygonSolid with the GamePanel and Maze instances.
+     */
     public PolygonSolid(GamePanel gamepanel, Maze maze) {
         this.maze = maze;
         this.gamepanel = gamepanel;
     }
 
+    /*
+     * Checks for collisions between the entity and the maze tiles using the polygonal shape.
+     */
     public void checkTile(Entity entity) {
 
         for (int i = 0; i < polygonX.length; i++) {
@@ -66,21 +77,33 @@ public class PolygonSolid implements ISolid {
         }
     }
 
+    /*
+     * Checks if two points are in the same tile.
+     */
     private boolean inSameTile(int x1, int y1, int x2, int y2) {
         return x1 == x2 && y1 == y2;
     }
 
+    /*
+     * Checks if the line between two points is a straight line (either horizontal or vertical).
+     */
     private boolean isStraightLine(int x1, int y1, int x2, int y2) {
         // Checks if the points align horizontally or vertically
         return x1 == x2 || y1 == y2;
     }
 
+    /*
+     * Checks if a specific tile has a collision property.
+     */
     private boolean intersectsTile(int tileX, int tileY) {
         // Retrieve tile number and check if it has a collision property
         int tileNum = gamepanel.tilemanager.mapTileNum[tileX][tileY];
         return gamepanel.tilemanager.tile[tileNum].collision;
     }
 
+    /*
+     * Collects the tiles that are between two points in a grid, used for checking multiple tile intersections.
+     */
     private java.util.List<int[]> tilesBetween(int x1, int y1, int x2, int y2) {
         List<int[]> tiles = new ArrayList<>();
 

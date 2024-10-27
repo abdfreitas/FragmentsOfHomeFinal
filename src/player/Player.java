@@ -7,12 +7,11 @@ import maze.Maze;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
+/*
  * Player class creates a character that's movable by the user and is considered as an entity
  * from the rest of the program and has personalized animations for each movement. The class also looks for any collisions
  * between a solid area within the player and the maze, and allows and disables movement accordingly.
  */
-
 public class Player extends Entity {
     GamePanel gamepanel;
     Maze maze;
@@ -35,13 +34,9 @@ public class Player extends Entity {
 
         setDefaultValues();
         loadAnimations();
-//        hasCollectedItem = false;
+        hasCollectedItem = false;
     }
-//
-//    // Display item status
-//    public boolean hasCollectedItem() {
-//        return hasCollectedItem;
-//    }
+
 
     /*
    Sets the initial values for the player's position and speed.

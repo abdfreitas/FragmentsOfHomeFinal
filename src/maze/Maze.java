@@ -1,5 +1,9 @@
 package maze;
 
+/*
+ * The Maze class represents a maze structure with defined dimensions and pathways.
+ * It initializes the maze grid and generates the maze using the MazeGenerator class.
+ */
 public class Maze {
 
     private final int mazeWidth, mazeHeight;
@@ -10,6 +14,10 @@ public class Maze {
     public static final int WALL = 1;
     public static final int PATH = 0;
 
+    /*
+    * Constructor initializes the maze with specified tile size and sets up
+    * its dimensions, starting and ending coordinates.
+     */
     public Maze(int tileSize) {
         this.mazeWidth = 19;
         this.mazeHeight = 13;
@@ -26,6 +34,9 @@ public class Maze {
         new MazeGenerator(this);
     }
 
+    /*
+     * Initializes the maze grid by setting all cells to the wall state.
+     */
     private void initializeMaze() {
         for (int x = 0; x < mazeWidth; x++) {
             for (int y = 0; y < mazeHeight; y++) {
@@ -34,14 +45,23 @@ public class Maze {
         }
     }
 
+    /*
+    * Retrieves the maze grid.
+     */
     public int[][] getMaze() {
         return maze;
     }
 
+    /*
+    * Gets the width of the maze.
+     */
     public int getWidth() {
         return mazeWidth;
     }
 
+    /*
+    * Gets the height of the maze.
+     */
     public int getHeight() {
         return mazeHeight;
     }

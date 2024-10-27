@@ -12,23 +12,20 @@ import ui.Screen;
 import javax.swing.*;
 import java.awt.*;
 
-
+//
+// The GamePanel class is responsible for the main game loop and rendering of the game elements.
+// It extends JPanel and implements Runnable to manage game updates and rendering.
+//
 public class GamePanel extends JPanel implements Runnable {
 
-    // SCREEN SETTINGS
-    // TILE SIZE
-    final int originalTileSize = 16; // 16x16 tile (default size of player, items, map tiles)
+    final int originalTileSize = 16;
     final int scale = 3;
-
-    // PLAYER SIZE
     final int originalPlayerSize = 16;
     final int playerScale = 3;
+    public final int tileSize = originalTileSize * scale;
+    public final int playerSize = originalPlayerSize * playerScale;
 
-    // SCALING FOR TILES AND PLAYER
-    public final int tileSize = originalTileSize * scale; // 48x48 tile
-    public final int playerSize = originalPlayerSize * playerScale; // 48x48 player
 
-    // FPS
     int FPS = 60;
 
     Maze maze = new Maze(tileSize);
@@ -41,6 +38,9 @@ public class GamePanel extends JPanel implements Runnable {
     GameState state = new GameState(this, maze, player);
     public KeyManager keyManager = new KeyManager(maze, tileSize, tilemanager); // New item manager
 
+    /*
+     * Constructor initializes the game panel and sets up the collision checker based on the provided type.
+     */
     public GamePanel(String collisionCheckerType) {
 
         this.setPreferredSize(new Dimension(screen.screenWidth, screen.screenHeight));
@@ -59,12 +59,17 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /*
+     * Starts the game thread, which runs the game loop.
+     */
     public void startGameThread() {
         gamethread = new Thread(this);
         gamethread.start();
     }
 
-    // DELTA GAME LOOP
+    /*
+     * The main game loop that updates and renders the game at a consistent frame rate.
+     */
     @Override
     public void run() {
 
@@ -98,6 +103,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /*
+     * Updates game elements, including player movement and state checking.
+     */
     public void update() {
         if (state.playing) {
             player.update();
@@ -105,36 +113,28 @@ public class GamePanel extends JPanel implements Runnable {
             state.checkState();
         }
         else if (state.gameWon) {
-
-        }
-        else if (state.gameOver) {
-
         }
     }
 
-    // Check if player has collected the item
+    /*
+     * Checks if the player has collected any items, specifically the key.
+     */
     public void checkItemCollection () {
         if (keyManager.getKey() != null && !keyManager.getKey().isCollected()) {
             int playerTileX = player.playerX / tileSize;
             int playerTileY = player.playerY / tileSize;
-            //System.out.println("Player: " + playerTileX + " " + playerTileY);
             int keyTileX = keyManager.getKey().getKeyX();
             int keyTileY = keyManager.getKey().getKeyY();
-            //System.out.println("Key: " + keyTileX + " " + keyTileY);
 
-            // Check if player collects the key
-            keyManager.checkKeyCollision(player.playerX, player.playerY);
-
-            // Check if player's tile matches key's tile
-            if (player.playerX == keyTileX && player.playerY == keyTileY) {
-                keyManager.getKey().collect();
-                player.hasCollectedItem = true; // Set flag for collected key
-            }
+            keyManager.checkKeyCollision(player);
         }
     }
 
+    /*
+     * Paints the game components onto the panel.
+     */
+    @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         screen.draw(g2);
         tilemanager.draw(g2, tileSize, maze.mazeStartX, maze.mazeStartY);
@@ -142,11 +142,8 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
 
         if (state.gameWon) {
-            state.winState.draw(g2); // This calls the new draw method in WinState
-        } else if (state.gameOver) {
-            state.gameOverState.draw(g2); // Draw the game over screen
+            state.winState.draw(g2);
         }
-
         g2.dispose();
     }
 }

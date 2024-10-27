@@ -6,6 +6,10 @@ import player.Entity;
 
 import java.awt.*;
 
+//
+// The RectangleSolid class implements the ISolid interface and handles collision detection
+// for entities using rectangular areas. It checks for collisions based on the entity's movement direction.
+//
 public class RectangleSolid implements ISolid {
 
     Maze maze;
@@ -13,11 +17,17 @@ public class RectangleSolid implements ISolid {
 
     Rectangle area = new Rectangle(10, 27, 28, 21 );
 
+    /*
+     * Constructor initializes the RectangleSolid with the GamePanel and Maze instances.
+     */
     public RectangleSolid(GamePanel gp, Maze maze) {
         this.gp = gp;
         this.maze = maze;
     }
 
+    /*
+     * Checks for collisions between the entity and the maze tiles based on the entity's direction.
+     */
     public void checkTile(Entity entity) {
 
         // Calculate entity's edges using playerX and playerY
@@ -35,6 +45,7 @@ public class RectangleSolid implements ISolid {
         // Collision tile numbers
         int tileNum1, tileNum2;
 
+        // Check collision based on entity's direction
         switch (entity.direction) {
             case "up":
                 entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;

@@ -7,6 +7,11 @@ import java.awt.Graphics;
 import java.io.*;
 import java.util.Arrays;
 
+
+/*
+ * TileManager class manages the tiles in the maze, including loading their images,
+ * assigning tile types based on the maze layout, and rendering the tiles to the screen.
+ */
 public class TileManager {
 
     Screen screen;
@@ -14,6 +19,10 @@ public class TileManager {
     public int[][] mapTileNum;
     Maze maze;
 
+    /*
+    * Initializes the TileManager with references to the screen and maze,
+    * sets up tile images, and assigns the maze grid.
+    */
     public TileManager(Screen screen, Maze maze) {
         this.screen = screen;
         this.maze = maze;
@@ -24,6 +33,9 @@ public class TileManager {
         System.out.println(Arrays.deepToString(mapTileNum));
     }
 
+    /*
+     * Loads tile images from files and assigns collision properties to each tile type.
+     */
     public void getTileImage() {
 
         try {
@@ -52,6 +64,9 @@ public class TileManager {
     }
 
 
+     /*
+     * Draws the tiles on the screen based on the maze layout and their respective positions.
+     */
     public void draw(Graphics g, int tileSize, int mazeStartX, int mazeStartY) {
 
         for (int x = 0; x < maze.getWidth(); x++) {
@@ -73,6 +88,10 @@ public class TileManager {
         }
     }
 
+    /*
+     * Assigns tile types in the maze grid based on the maze layout.
+     * Sets the appropriate tile number for path tiles in the mapTileNum array.
+     */
     public void assignMazeGrid() {
 
         for (int i = maze.mazeStartCol; i < maze.mazeStartCol + maze.getWidth(); i++) {

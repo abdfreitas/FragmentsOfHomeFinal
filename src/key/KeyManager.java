@@ -2,6 +2,7 @@ package key;
 
 import game.GamePanel;
 import maze.Maze;
+import player.Player;
 import tile.TileManager;
 
 import java.awt.*;
@@ -35,14 +36,14 @@ public class KeyManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-                do {
-                    x = random.nextInt(maze.getWidth()-2)+2;
-                    y = random.nextInt(maze.getHeight()-2)+2;
-                    // Log for debugging to see if we’re on a path tile
-                    System.out.println("Attempting spawn at (" + x + ", " + y + ")");
-                    System.out.println("Tile type: " + tilemanager.mapTileNum[x][y]);
+        do {
+            x = random.nextInt(maze.getWidth()-2)+2;
+            y = random.nextInt(maze.getHeight()-2)+2;
+            // Log for debugging to see if we’re on a path tile
+            System.out.println("Attempting spawn at (" + x + ", " + y + ")");
+            System.out.println("Tile type: " + tilemanager.mapTileNum[x][y]);
 
-                } while (tilemanager.mapTileNum[x][y] != 3);
+        } while (tilemanager.mapTileNum[x][y] != 3);
 
 
         // Confirm that coordinates map to pixel positions in the maze
@@ -51,14 +52,15 @@ public class KeyManager {
     }
 
     // Check if the player has collected the key
-    public void checkKeyCollision(int playerX, int playerY) {
+    public void checkKeyCollision(Player player) {
         if (key != null && !key.isCollected()) {
             int keyX = key.getKeyX();
             int keyY = key.getKeyY();
 
             // Check if the player is within range to collect the key
-            if (Math.abs(playerX - keyX) < tileSize && Math.abs(playerY - keyY) < tileSize) {
+            if (Math.abs(player.playerX - keyX) < tileSize && Math.abs(player.playerY - keyY) < tileSize) {
                 key.collect();
+                player.hasCollectedItem = true;
                 System.out.println("Collected");
             }
         }
