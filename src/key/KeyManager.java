@@ -31,7 +31,7 @@ public class KeyManager {
         BufferedImage keyImage = null;
 
         try {
-            keyImage = ImageIO.read(new File("res/items/Key.png"));
+            keyImage = ImageIO.read(new File("res/items/Star.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

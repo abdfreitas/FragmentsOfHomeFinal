@@ -14,7 +14,7 @@ public class GameState {
     public GameOverState gameOverState;
     public boolean gameWon = false;
     public boolean gameOver = false;
-    public boolean playing = false;
+    public boolean playing = true;
 
     public GameState(GamePanel gamepanel, Maze maze, Entity entity) {
         this.gamepanel = gamepanel;
@@ -27,9 +27,11 @@ public class GameState {
 
     public void checkState() {
         if (winState.checkWinCondition(entity)) {
+            playing = false;
             gameWon = true;
         }
-//        else if (gameOverState.checkGameOverCondition(entity)){
+//       else if (gameOverState.checkGameOverCondition(entity)){
+//            playing = false;
 //            gameOver = true;
 //        }
     }
