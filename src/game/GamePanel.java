@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable {
     public ISolid collisionchecker;
     public Player player = new Player(this, keyhandler, maze);
     GameState state = new GameState(this, maze, player);
-    public KeyManager keyManager = new KeyManager(maze, tileSize); // New item manager
+    public KeyManager keyManager = new KeyManager(maze, tileSize, tilemanager); // New item manager
 
     public GamePanel(String collisionCheckerType) {
 
@@ -102,6 +102,13 @@ public class GamePanel extends JPanel implements Runnable {
         if (state.playing) {
             player.update();
             checkItemCollection();
+            state.checkState();
+        }
+        else if (state.gameWon) {
+
+        }
+        else if (state.gameOver) {
+
         }
     }
 
@@ -111,15 +118,15 @@ public class GamePanel extends JPanel implements Runnable {
             int playerTileX = player.playerX / tileSize;
             int playerTileY = player.playerY / tileSize;
             //System.out.println("Player: " + playerTileX + " " + playerTileY);
-            int keyTileX = keyManager.getKey().getKeyX() / tileSize;
-            int keyTileY = keyManager.getKey().getKeyY() / tileSize;
+            int keyTileX = keyManager.getKey().getKeyX();
+            int keyTileY = keyManager.getKey().getKeyY();
             //System.out.println("Key: " + keyTileX + " " + keyTileY);
 
             // Check if player collects the key
             keyManager.checkKeyCollision(player.playerX, player.playerY);
 
             // Check if player's tile matches key's tile
-            if (playerTileX == keyTileX && playerTileY == keyTileY) {
+            if (player.playerX == keyTileX && player.playerY == keyTileY) {
                 keyManager.getKey().collect();
                 player.hasCollectedItem = true; // Set flag for collected key
             }
@@ -133,7 +140,13 @@ public class GamePanel extends JPanel implements Runnable {
         tilemanager.draw(g2, tileSize, maze.mazeStartX, maze.mazeStartY);
         keyManager.draw(g2);
         player.draw(g2);
-        state.draw(g2);
+
+        if (state.gameWon) {
+            state.winState.draw(g2); // This calls the new draw method in WinState
+        } else if (state.gameOver) {
+            state.gameOverState.draw(g2); // Draw the game over screen
+        }
+
         g2.dispose();
     }
 }

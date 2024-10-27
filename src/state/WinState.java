@@ -14,24 +14,30 @@ import java.awt.event.ActionListener;
 public class WinState {
     GamePanel gamepanel;
     Maze maze;
+    Entity entity;
     boolean gameWon = false;
     //GameTimer timer;
     Key key;
 
-    public WinState(GamePanel gamepanel, Maze maze) {
+    public WinState(GamePanel gamepanel, Maze maze, Entity entity) {
         this.gamepanel = gamepanel;
         this.maze = maze;
+        this.entity = entity;
     }
 
     public boolean checkWinCondition(Entity entity) {
         int winTileX, winTileY;
 
-        winTileX = maze.getWidth() * gamepanel.tileSize;
-        winTileY = (maze.getHeight() + 1) * gamepanel.tileSize;
+        winTileX = 19;
+        winTileY = 13;
 
-        if (entity.playerX == winTileX && entity.playerY == winTileY && entity.hasCollectedItem) {
+//        winTileX =  / gamepanel.tileSize
+//        winTileY = maze.getHeight();
+
+        if (entity.playerX / gamepanel.tileSize == winTileX && entity.playerY / gamepanel.tileSize == winTileY && entity.hasCollectedItem) {
             gameWon = true;
             //timer.timerStop();
+            System.out.println("You win!");
             return gameWon;
         }
         return false;
@@ -52,7 +58,8 @@ public class WinState {
         playAgainButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gamepanel.startGameThread();
+                gamepanel.remove(winPanel); // Removes the win screen panel
+                gamepanel.startGameThread(); // Restarts the game
             }
         });
 
@@ -65,5 +72,22 @@ public class WinState {
             }
         });
 
+        // Add components to the win panel
+        winPanel.add(Box.createVerticalGlue()); // Adds top spacing to center vertically
+        winPanel.add(winLabel);
+        winPanel.add(Box.createVerticalStrut(20)); // Adds space between the label and play button
+        winPanel.add(playAgainButton);
+        winPanel.add(Box.createVerticalStrut(10)); // Adds space between buttons
+        winPanel.add(exitButton);
+        winPanel.add(Box.createVerticalGlue()); // Adds bottom spacing to center vertically
+
+
+        // Adding the panel to GamePanel
+        gamepanel.setLayout(new BorderLayout());
+        gamepanel.add(winPanel, BorderLayout.CENTER);
+
+        // Repaint to refresh GamePanel with win screen
+        gamepanel.revalidate();
+        gamepanel.repaint();
     }
 }

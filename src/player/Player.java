@@ -35,13 +35,13 @@ public class Player extends Entity {
 
         setDefaultValues();
         loadAnimations();
-        hasCollectedItem = false;
+//        hasCollectedItem = false;
     }
-
-    // Display item status
-    public boolean hasCollectedItem() {
-        return hasCollectedItem;
-    }
+//
+//    // Display item status
+//    public boolean hasCollectedItem() {
+//        return hasCollectedItem;
+//    }
 
     /*
    Sets the initial values for the player's position and speed.
@@ -117,6 +117,8 @@ public class Player extends Entity {
             case "left" -> playerX -= speed;
             case "right" -> playerX += speed;
         }
+        //System.out.println("Player: " + playerX / gamepanel.tileSize + ", " + playerY / gamepanel.tileSize);
+
     }
 
     /*

@@ -27,7 +27,7 @@ public class Screen {
 
     public void getScreen() {
         try {
-            screen = ImageIO.read(new File( "res/tiles/planetPixelBg.png")); // Adjust path as necessary
+            screen = ImageIO.read(new File( "res/tiles/PlanetFloor.png")); // Adjust path as necessary
 
         }
         catch (IOException e) {

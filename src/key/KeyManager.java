@@ -2,6 +2,8 @@ package key;
 
 import game.GamePanel;
 import maze.Maze;
+import tile.TileManager;
+
 import java.awt.*;
 import java.util.Random;
 import java.awt.image.BufferedImage;
@@ -12,12 +14,14 @@ import java.io.IOException;
 public class KeyManager {
     public Key key;
     Maze maze;
+    TileManager tilemanager;
     public final int tileSize;
     int x,y;
 
-    public KeyManager(Maze maze, int tileSize) {
+    public KeyManager(Maze maze, int tileSize, TileManager tilemanager) {
         this.maze = maze;
         this.tileSize = tileSize;
+        this.tilemanager = tilemanager;
         spawnKey();
     }
 
@@ -31,18 +35,15 @@ public class KeyManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (int i = maze.mazeStartCol; i < maze.mazeStartCol + maze.getWidth(); i++) {
-            for (int j = maze.mazeStartRow; j < maze.mazeStartRow + maze.getHeight(); j++) {
                 do {
-                    x = random.nextInt(maze.getWidth());
-                    y = random.nextInt(maze.getHeight());
+                    x = random.nextInt(maze.getWidth()-2)+2;
+                    y = random.nextInt(maze.getHeight()-2)+2;
                     // Log for debugging to see if we’re on a path tile
                     System.out.println("Attempting spawn at (" + x + ", " + y + ")");
-                    System.out.println("Tile type: " + maze.getMaze()[x][y]);
+                    System.out.println("Tile type: " + tilemanager.mapTileNum[x][y]);
 
-                } while (maze.getMaze()[x][y] != Maze.PATH);
-            }
-        }
+                } while (tilemanager.mapTileNum[x][y] != 3);
+
 
         // Confirm that coordinates map to pixel positions in the maze
         key = new Key(x * tileSize, y * tileSize, keyImage);

@@ -5,6 +5,7 @@ import ui.Screen;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
 import java.io.*;
+import java.util.Arrays;
 
 public class TileManager {
 
@@ -20,6 +21,7 @@ public class TileManager {
         mapTileNum = new int[screen.maxScreenCol][screen.maxScreenRow];
         assignMazeGrid();
         getTileImage();
+        System.out.println(Arrays.deepToString(mapTileNum));
     }
 
     public void getTileImage() {
